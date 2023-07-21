@@ -13,7 +13,6 @@
 ./denoExp /mnt/data/yichen/data FlowExact WV
 
 
-./fastGreedypp /mnt/data/yichen/data YT
 
 
 ./formatData /mnt/data/yichen/data NM
