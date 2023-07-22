@@ -14,6 +14,14 @@ git clone https://github.com/Xyc-arch/DS_DalkS.git
 cd DS_DalkS
 ```
 
+## Setup
+
+A Linux machine equipped with two Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz processors with 10 cores.
+
+gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1).
+
+Python 3.8.10 with numpy and matplotlib installed.
+
 ## Compilation
 
 You can compile all executables by
