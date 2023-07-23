@@ -35,6 +35,8 @@ Python 3.8.10 with numpy and matplotlib installed.
 | Amazon | AZ | [link](https://snap.stanford.edu/data/com-Amazon.html) | com-amazon.ungraph.txt.gz |
 | Libimseti | LB | [link](https://networks.skewed.de/net/libimseti) | libimseti (network.csv.zip) |
 | FacebookForum | FF | [link](https://toreopsahl.com/datasets/) | Network 2 Weighted static one-mode network (weighted by number of messages; sum): tnet-format |
+| Newman | NM | [link](https://toreopsahl.com/datasets/) | Network 12 Weighted static one-mode network (sum of joint papers): tnet-format (1.21mb) |
+| Open-Flights| OF | [link](https://toreopsahl.com/datasets/) | Network 14 third dataset tnet-format |
 
 
 ## Compilation
