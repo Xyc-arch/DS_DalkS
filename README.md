@@ -22,6 +22,14 @@ gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1).
 
 Python 3.8.10 with numpy and matplotlib installed.
 
+
+## Dataset preparation
+
+|  Dataset  |  Short  |  weblink  |  download file  | 
+| --------- | ------- | --------- | --------------- | 
+| Friendster | FT | [link](https://snap.stanford.edu/data/com-Friendster.html) | com-friendster.ungraph.txt.gz | 
+
+
 ## Compilation
 
 You can compile all executables by
