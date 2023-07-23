@@ -28,6 +28,10 @@ Python 3.8.10 with numpy and matplotlib installed.
 |  Dataset  |  Short  |  weblink  |  download file  | 
 | --------- | ------- | --------- | --------------- | 
 | Friendster | FT | [link](https://snap.stanford.edu/data/com-Friendster.html) | com-friendster.ungraph.txt.gz | 
+| Orkut | OK | [link](https://snap.stanford.edu/data/com-Orkut.html) | com-orkut.ungraph.txt.gz |
+| LiveJournal | LJ | [link](https://snap.stanford.edu/data/com-LiveJournal.html) | com-lj.ungraph.txt.gz |
+| YouTube | YT | [link](https://snap.stanford.edu/data/com-Youtube.html) | com-youtube.ungraph.txt.gz |
+| DBLP | DP | [link](https://snap.stanford.edu/data/com-DBLP.html) | com-dblp.ungraph.txt.gz |
 
 
 ## Compilation
