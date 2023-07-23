@@ -32,6 +32,9 @@ Python 3.8.10 with numpy and matplotlib installed.
 | LiveJournal | LJ | [link](https://snap.stanford.edu/data/com-LiveJournal.html) | com-lj.ungraph.txt.gz |
 | YouTube | YT | [link](https://snap.stanford.edu/data/com-Youtube.html) | com-youtube.ungraph.txt.gz |
 | DBLP | DP | [link](https://snap.stanford.edu/data/com-DBLP.html) | com-dblp.ungraph.txt.gz |
+| Amazon | AZ | [link](https://snap.stanford.edu/data/com-Amazon.html) | com-amazon.ungraph.txt.gz |
+| Libimseti | LB | [link](https://networks.skewed.de/net/libimseti) | libimseti (network.csv.zip) |
+| FacebookForum | FF | [link](https://toreopsahl.com/datasets/) | Network 2 Weighted static one-mode network (weighted by number of messages; sum): tnet-format |
 
 
 ## Compilation
