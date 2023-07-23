@@ -45,7 +45,7 @@ You need to place text files in the directory `data`. Follow the steps:
 
 - `gz files`: decompress gz files and extract txt files. (e.g. web-NotreDame.txt from web-NotreDame.txt.gz)
 - `tnet`: press `command/ctr` + `s` to download txt files.
-- `zip file`: unzip `network.csv.zip` and extract `edges.csv` out.
+- `zip files`: unzip `network.csv.zip` and extract `edges.csv` out.
 - Place all text files in `data` directory.
 - Rename `Newman-Cond_mat_95-99-co_occurrence.txt` (`NM`) as `test.txt`.
 
