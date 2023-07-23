@@ -37,16 +37,36 @@ Python 3.8.10 with numpy and matplotlib installed.
 | FacebookForum | FF | [link](https://toreopsahl.com/datasets/) | Network 2 Weighted static one-mode network (weighted by number of messages; sum): tnet-format |
 | Newman | NM | [link](https://toreopsahl.com/datasets/) | Network 12 Weighted static one-mode network (sum of joint papers): tnet-format (1.21mb) |
 | Open-Flights| OF | [link](https://toreopsahl.com/datasets/) | Network 14 third dataset tnet-format |
+| WikiVote | N/A | [link](https://snap.stanford.edu/data/wiki-Vote.html) | Wiki-Vote.txt.gz |
+| Standford | N/A | [link](https://snap.stanford.edu/data/web-Stanford.html) | web-Stanford.txt.gz |
+| NotreDame | N/A | [link](https://snap.stanford.edu/data/web-NotreDame.html) | web-NotreDame.txt.gz |
 
+You need to place text files in the directory `data`. Follow the steps:
 
-*Remark*
+- `gz files`: decompress gz files and extract txt files. (e.g. web-NotreDame.txt from web-NotreDame.txt.gz)
+- `tnet`: press `command/ctr` + `s` to download txt files.
+- `zip file`: unzip `network.csv.zip` and extract `edges.csv` out.
+- Place all text files in `data` directory.
+- Rename `Newman-Cond_mat_95-99-co_occurrence.txt` (`NM`) as `test.txt`.
+
+Check the `data` directory:
 
 
  * data
     * data/com-friendster.ungraph.txt
     * data/com-orkut.ungraph.txt
     * data/com-lj.ungraph.txt
-    * data/
+    * data/com-youtube.ungraph.txt
+    * data/com-dblp.ungraph.txt
+    * data/com-amazon.ungraph.txt
+    * data/edges.csv
+    * data/OF_one-mode_weightedmsg_sum.txt
+    * data/test.txt
+    * data/open-flight.txt
+    * data/Wiki-Vote.txt
+    * data/web-Stanford.txt
+    * data/web-NotreDame.txt
+
 
 
 ## Compilation
