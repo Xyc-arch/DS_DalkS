@@ -37,7 +37,7 @@ int unWeightexp(string path, string mode, string dataset){
 
     // live journal parameter set
     if (dataset == "LJ") {
-        file = path + "/com-lj.ungraph.txt";
+        file = path + "/LJ.txt";
         startLine = 5;
         lineNum = 34681193;
         V=4036538;
@@ -46,7 +46,7 @@ int unWeightexp(string path, string mode, string dataset){
 
      // friendster parameter set
     if (dataset == "FT") {
-        file = path + "/com-friendster.ungraph.txt";
+        file = path + "/FT.txt";
         startLine = 5;
         lineNum = 1806067139;
         V=124836179;
@@ -56,7 +56,7 @@ int unWeightexp(string path, string mode, string dataset){
 
     // orkut parameter set
     if (dataset == "OK") {
-        file = path + "/com-orkut.ungraph.txt";
+        file = path + "/OK.txt";
         startLine = 5;
         V = 3072626;
         lineNum = 117185087;
@@ -66,7 +66,7 @@ int unWeightexp(string path, string mode, string dataset){
 
     // com-YouTube parameter set
     if (dataset == "YT") {
-        file = path + "/com-youtube.ungraph.txt";
+        file = path + "/YT.txt";
         startLine = 5;
         V = 1157827;
         lineNum = 2987628;
@@ -76,7 +76,7 @@ int unWeightexp(string path, string mode, string dataset){
 
     // com-dblp parameter set
     if (dataset == "DP") {
-        file = path + "/com-dblp.ungraph.txt";
+        file = path + "/DP.txt";
         startLine = 5;
         lineNum = 1049866;
         V = 425957;
@@ -86,7 +86,7 @@ int unWeightexp(string path, string mode, string dataset){
 
     // com-Amazon
     if (dataset == "AZ") {
-        file = path + "/com-amazon.ungraph.txt";
+        file = path + "/AZ.txt";
         startLine = 5;
         lineNum = 925876;
         V=548551;

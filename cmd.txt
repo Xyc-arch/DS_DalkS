@@ -1,30 +1,30 @@
-./unWExp /mnt/data/yichen/data cCoreExact YT
-./unWExp /mnt/data/yichen/data fastDalkS YT
-./unWExp /mnt/data/yichen/data cCoreApp* YT
-./unWExp /mnt/data/yichen/data greedypp YT
-./unWExp /mnt/data/yichen/data cCoreGpp YT
+./unWExp ./data/yichen/data cCoreExact YT
+./unWExp ./data/yichen/data fastDalkS YT
+./unWExp ./data/yichen/data cCoreApp* YT
+./unWExp ./data/yichen/data greedypp YT
+./unWExp ./data/yichen/data cCoreGpp YT
 
-./WExp /mnt/data/yichen/data cCoreApp* NM
-./WExp /mnt/data/yichen/data cCoreApp* LW
-./WExp /mnt/data/yichen/data cCoreGpp LB
-./WExp /mnt/data/yichen/data greedypp LB
+./WExp ./data/yichen/data cCoreApp* NM
+./WExp ./data/yichen/data cCoreApp* LW
+./WExp ./data/yichen/data cCoreGpp LB
+./WExp ./data/yichen/data greedypp LB
 
-./denoExp /mnt/data/yichen/data cCoreExact WV
-./denoExp /mnt/data/yichen/data FlowExact WV
-
-
+./denoExp ./data/yichen/data cCoreExact WV
+./denoExp ./data/yichen/data FlowExact WV
 
 
-./formatData /mnt/data/yichen/data NM
-./formatData /mnt/data/yichen/data LJ
-./formatData /mnt/data/yichen/data AZ
-./formatData /mnt/data/yichen/data DP
 
 
-./Density-Friendly/exactDF 4 1500 /mnt/data/yichen/data/testnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/testExact.txt
-./Density-Friendly/exactDF 4 1500 /mnt/data/yichen/data/comljnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/comljExact.txt
-./Density-Friendly/exactDF 4 1500 /mnt/data/yichen/data/amazonnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/amazonExact.txt
-./Density-Friendly/exactDF 4 1500 /mnt/data/yichen/data/dblpnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/dblpExact.txt
+./formatData ./data/yichen/data NM
+./formatData ./data/yichen/data LJ
+./formatData ./data/yichen/data AZ
+./formatData ./data/yichen/data DP
+
+
+./Density-Friendly/exactDF 4 1500 ./data/yichen/data/testnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/testExact.txt
+./Density-Friendly/exactDF 4 1500 ./data/yichen/data/comljnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/comljExact.txt
+./Density-Friendly/exactDF 4 1500 ./data/yichen/data/amazonnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/amazonExact.txt
+./Density-Friendly/exactDF 4 1500 ./data/yichen/data/dblpnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/dblpExact.txt
 
 
 python3 ./Density-Friendly/dalksDecomp.py

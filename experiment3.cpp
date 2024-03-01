@@ -225,7 +225,7 @@ int denoExp(string path, string mode, string dataset){
 
     if (dataset == "WV") {
         V = 8297;
-        file = path + "/Wiki-Vote.txt";
+        file = path + "/WV.txt";
         startLine = 5;
         lineNum = 103693;
         fromZero = false;
@@ -233,7 +233,7 @@ int denoExp(string path, string mode, string dataset){
 
     if (dataset == "SF") {
         V = 281903;
-        file = path + "/web-Stanford.txt";
+        file = path + "/SF.txt";
         startLine = 5;
         lineNum = 2312501;
         fromZero = false;
@@ -241,7 +241,7 @@ int denoExp(string path, string mode, string dataset){
 
     if (dataset == "ND") {
         V = 325729;
-        file = path + "/web-NotreDame.txt";
+        file = path + "/ND.txt";
         startLine = 5;
         lineNum = 1497138;
         fromZero = true;
@@ -263,8 +263,8 @@ int denoExp(string path, string mode, string dataset){
 //    cout << totalEW/totalVW << endl;
 
 
-    if (mode == "cCoreExact") resultDen = denoBerkley3(V, indicateGraph, strength, vertexS, adj);
-    if (mode == "FlowExact") resultDen = denoBerkley2(V, vertexNum, totalVW, totalEW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreExact") resultDen = denoBerkley2(V, vertexNum, totalVW, totalEW, indicateGraph, strength, vertexS, adj);
+    if (mode == "FlowExact") resultDen = denoBerkley3(V, indicateGraph, strength, vertexS, adj);
 
 
     return 0;

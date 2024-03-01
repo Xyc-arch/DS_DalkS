@@ -93,7 +93,7 @@ int main(int argc, char *argv[]){
     int lineNum;
 
     if (dataset == "LJ") {
-        input = path + "/com-lj.ungraph.txt";
+        input = path + "/LJ.txt";
         output = path + "/comljnet.txt";
         split = "	";
         startLine = 5;
@@ -101,7 +101,7 @@ int main(int argc, char *argv[]){
     }
 
     if (dataset == "NM") {
-        input = path + "/test.txt";
+        input = path + "/NM.txt";
         output = path + "/testnet.txt";
         split = " ";
         startLine = 1;
@@ -109,7 +109,7 @@ int main(int argc, char *argv[]){
     }
 
     if (dataset == "DP") {
-        input = path + "/com-dblp.ungraph.txt";
+        input = path + "/DP.txt";
         output = path + "/dblpnet.txt";
         split = "	";
         startLine = 5;
@@ -123,7 +123,7 @@ int main(int argc, char *argv[]){
     // int lineNum = 2987628;
 
     if (dataset == "AZ") {
-        input = path + "/com-amazon.ungraph.txt";
+        input = path + "/AZ.txt";
         output = path + "/amazonnet.txt";
         split = "	";
         startLine = 5;
