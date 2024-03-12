@@ -9,8 +9,9 @@
 #include <time.h>
 #include <fstream>
 #include <cstring>
+#include <vector>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 
 
 // A structure to represent a edge between

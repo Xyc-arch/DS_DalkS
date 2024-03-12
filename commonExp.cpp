@@ -5,8 +5,10 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <math.h>
+#include <vector>
+#include <map>
 #include "experiment.h"
 #include "dinic.h"
 using namespace std;
@@ -600,8 +602,8 @@ float berkleyexp3(int V, int indicateGraph[], float strength[], float vertexS[],
     resultDen = BerkleyFlow(0, maxS, 0.001, V, indicateGraph, strength, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "berkley density: " << resultDen << endl;
+    cout << duration << endl;
 
     return 0;
 }
@@ -833,8 +835,8 @@ float soda22exp3(int V, long double totalW, int indicateGraph[], float strength[
     resultDen = soda22FlowApp(0, maxS, 0.001, V, int(totalW), indicateGraph, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "soda22 modified density: " << resultDen << endl;
+    cout << duration << endl;
 
     return 0;
 }
@@ -855,8 +857,8 @@ float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[
     resultDen = soda22FlowOrigin(0, maxS, 0.001, V, int(totalW), indicateGraph, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "soda22 origin density: " << resultDen << endl;
+    cout << duration << endl;
 
     return 0;
 }
@@ -876,7 +878,7 @@ float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[
 float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
     clock_t start, finish;
     double duration;
-    int T = 1000;
+    int T = 100;
     int cp=1;
     int heapSize=vertexNum;
     int optSize = vertexNum;
@@ -892,7 +894,7 @@ float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[],
 
     start = clock();
     for (int t=1; t<=T; t++){
-        cout << "iter " << t << endl;
+//        cout << "iter " << t << endl;
         totalW = originTotalW;
         heapSize = vertexNum;
         optDen = totalW/heapSize;

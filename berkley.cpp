@@ -5,8 +5,9 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <math.h>
+#include <vector>
 #include "heap.h"
 #include "dinic.h"
 using namespace std;
@@ -100,7 +101,7 @@ float BerkleyDeno(float l, float u, float eps, int V, int indicateGraph[], float
         } else {
             l = guess;
         }
-        cout << "The current gap: " << u-l << endl;
+//        cout << "The current gap: " << u-l << endl;
     }
 
 

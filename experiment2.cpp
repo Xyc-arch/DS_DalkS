@@ -5,8 +5,12 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <cmath>
+#include <vector>
+#include <cfloat>
+#include <algorithm>
+#include <map>
 #include <math.h>
 #include "experiment2.h"
 using namespace std;
@@ -503,7 +507,7 @@ int weightexp(string path, string mode, string dataset){
 
     // lbimseti
     if (dataset == "LB") {
-        file = path + "/edges.csv";
+        file = path + "/LB.csv";
         V = 220970;
         startLine = 2;
         lineNum = 17359347;
@@ -511,7 +515,7 @@ int weightexp(string path, string mode, string dataset){
 
     // test (NM)
     if (dataset == "NM") {
-        file = path + "/test.txt";
+        file = path + "/NM.txt";
         V = 16726;
         startLine = 1;
         lineNum = 95188;
@@ -519,7 +523,7 @@ int weightexp(string path, string mode, string dataset){
 
     // open-flight
     if (dataset == "OF") {
-        file = path + "/open-flight.txt";
+        file = path + "/OF.txt";
         V = 7976;
         startLine = 1;
         lineNum = 30501;
@@ -528,7 +532,7 @@ int weightexp(string path, string mode, string dataset){
 
     // facebook-like social network
     if (dataset == "FF") {
-        file = path + "/OF_one-mode_weightedmsg_sum.txt";
+        file = path + "/FF.txt";
         V = 899;
         startLine = 1;
         lineNum = 142760;
@@ -558,7 +562,7 @@ int weightexp(string path, string mode, string dataset){
     if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "Greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
 
     return 0;
@@ -749,7 +753,7 @@ int weightexp2(string path, string mode, string dataset){
     if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "Greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
 
     return 0;

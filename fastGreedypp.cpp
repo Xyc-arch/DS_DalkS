@@ -5,8 +5,11 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <math.h>
+#include <vector>
+#include <cfloat>
+#include <map>
 #include "experiment.h"
 #include "experiment2.h"
 #include "experiment3.h"

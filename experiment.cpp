@@ -5,7 +5,9 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+#include <vector>
+#include <utility>
+//#include <bits/stdc++.h>
 #include <math.h>
 #include "experiment.h"
 #include "dinic.h"
@@ -113,7 +115,7 @@ int unWeightexp(string path, string mode, string dataset){
     if (mode == "cCoreApp") soda22exp1(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj); 
     if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj);  
     if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "Greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
     if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
 
 

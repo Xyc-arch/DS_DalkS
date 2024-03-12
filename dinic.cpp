@@ -6,7 +6,10 @@
 #include <cstring>
 #include <sstream>
 #include <cmath>
-#include <bits/stdc++.h>
+#include <vector>
+#include <list>
+#include <cfloat>
+//#include <bits/stdc++.h>
 #include "dinic.h"
 
 using namespace std;

@@ -147,7 +147,7 @@ Here, we provide the instruction for reproducing all of results. Note that the m
 Components in following cmd are like:
 
 ```sh
-./executable /path/to/data/dirctory algorithm dataset
+./executable /path/to/data/directory algorithm dataset
 ```
 In the following, we use `./data` as the path to our `data` directory containing all data. You should replace it with yours.
 
@@ -161,7 +161,7 @@ make unWExp
 ./unWExp ./data cCoreExact YT
 ./unWExp ./data fastDalkS YT
 ./unWExp ./data cCoreApp* YT
-./unWExp ./data greedypp YT
+./unWExp ./data Greedypp YT
 ./unWExp ./data cCoreGpp YT
 ./unWExp ./data FlowExact YT
 ./unWExp ./data cCoreApp YT
@@ -176,7 +176,7 @@ make WExp
 ./WExp ./data cCoreExact NM
 ./WExp ./data fastDalkS NM
 ./WExp ./data cCoreApp* NM
-./WExp ./data greedypp NM
+./WExp ./data Greedypp NM
 ./WExp ./data cCoreGpp NM
 ./WExp ./data FlowExact NM
 ./WExp ./data cCoreApp NM

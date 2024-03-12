@@ -5,8 +5,11 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <cmath>
+#include <vector>
+#include <cfloat>
+#include <map>
 #include <math.h>
 #include "experiment3.h"
 using namespace std;
@@ -208,8 +211,9 @@ float denoBerkley3(int V, int indicateGraph[], float strength[], float vertexS[]
     resultDen = BerkleyDeno(0, maxS, 0.001, V, indicateGraph, strength, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "berkley density: " << resultDen << endl;
+    cout << duration << endl;
+
 
     return resultDen;
 }
