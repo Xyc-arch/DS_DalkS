@@ -3,8 +3,7 @@ import os
 import gzip
 import zipfile
 import subprocess
-import numpy as np
-
+# import numpy as np
 
 # import pandas as pd
 import matplotlib.pyplot as plt
@@ -51,18 +50,19 @@ def extract_file(in_file, short_name):
     # print(short_name + ' has been extracted.')
 
 
-def run(command, timeout=72 * 3600):
+def run(command, timeout=72 * 3600, file_name=''):
     command = command.strip().split(' ')
     # print(command)
-    executable = command[-4]
-    algorithm, dataset = command[-2], command[-1]
+    executable = command[-5]
+    algorithm, dataset = command[-3], command[-2]
     # command = [executable, data_directory, algorithm, dataset]
-    file_name = './outputs/' + executable + '_' + algorithm + '_' + dataset + '.txt'
+    if file_name == '':
+        file_name = './outputs/' + executable[2:] + '_' + algorithm + '_' + dataset + '.txt'
     try:
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        print(timeout)
+        # print(timeout)
         stdout, stderr = proc.communicate(timeout=timeout)
-
+        print(file_name)
         with open(file_name, 'w') as file:
             file.write(stdout)
 
@@ -78,9 +78,9 @@ def run(command, timeout=72 * 3600):
 
 
 def format_time(time):
-    flag = time[0] == '>'
+    flag = time[1] == '>'
     if flag:
-        time = float(time[1:])
+        time = float(time[3:])
     else:
         time = float(time)
     if time >= 60:
@@ -101,12 +101,13 @@ def format_time(time):
     else:
         time = f"{format(time, '.2f')} s"
     if flag:
-        time = '>' + time
+        time = r'$>$' + time
     return time
 
 
 def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     # todo
+    timeout = 100
     cols = ['Dataset', 'cCoreExact', 'FlowExact', 'cCoreApp*', 'FlowApp', 'FlowApp*', 'Greedy++', 'cCoreG++',
             r'$\frac{FlowExact}{cCoreExact}$', r'$\frac{FlowApp*}{cCoreApp*}$', r'$\frac{Greedy++}{cCoreExact}$']
     result = subprocess.run(['which', 'time'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -116,11 +117,13 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         row = [f'{graph}']
         executable = './unWExp'
         for col in cols[1: 8]:
+            eps = '0.001'
             if col[-2] == '+':
                 col = col[:-2] + 'pp'
-            file_name = './outputs/' + '_'.join([executable, col, graph]) + '.txt'
+                eps = '0.0909'
+            file_name = './outputs/' + '_'.join([executable[2:], col, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', col, graph])
+                command = ' '.join([executable, './data', col, graph, eps])
                 if col == 'FlowExact' or col == 'cCoreExact':
                     command = time + ' -v ' + command
                 print(command)
@@ -132,22 +135,28 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                 elif col == 'FlowExact':
                     row.append(lines[3].split(' ')[-1])
                 elif col == 'cCoreExact':
-                    row.append(lines[5].split(' ')[-1])
+                    row.append(lines[6].split(' ')[-1])
                 else:
                     row.append(lines[-1].split(' ')[-1])
         if row[2][0] != '>':
             row.append(format(float(row[2]) / float(row[1]), '.2f'))
         else:
-            row.append('>' + format(float(row[2][1:]) / float(row[1]), '.2f'))
+            row.append(r'$>$' + format(float(row[2][1:]) / float(row[1]), '.2f'))
+            row[2] = r'$>$' + row[2][1:]
         if row[5][0] != '>':
             row.append(format(float(row[5]) / float(row[3]), '.2f'))
         else:
-            row.append('>' + format(float(row[5][1:]) / float(row[3]), '.2f'))
+            row.append(r'$>$' + format(float(row[5][1:]) / float(row[3]), '.2f'))
+            row[5] = r'$>$' + row[5][1:]
         if row[6][0] != '>':
             row.append(format(float(row[6]) / float(row[1]), '.2f'))
         else:
             row.append(format(float(row[6][1:]) / float(row[1]), '.2f'))
+            row[6] = r'$>$' + row[6][1:]
+        # print(row)
         for i in range(1, 8):
+            if row[i][0] == '>':
+                row[i] = r'$>$' + row[i][1:]
             row[i] = format_time(row[i])
         data.append(row)
 
@@ -155,11 +164,13 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         row = [f'{graph}']
         executable = './WExp'
         for col in cols[1: 8]:
+            eps = '0.001'
             if col[-2] == '+':
                 col = col[:-2] + 'pp'
-            file_name = './outputs/' + '_'.join([executable, col, graph]) + '.txt'
+                eps = '0.0909'
+            file_name = './outputs/' + '_'.join([executable[2:], col, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', col, graph])
+                command = ' '.join([executable, './data', col, graph, eps])
                 if col == 'FlowExact' or col == 'cCoreExact':
                     command = time + ' -v ' + command
                 print(command)
@@ -171,38 +182,44 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                 elif col == 'FlowExact':
                     row.append(lines[6].split(' ')[-1])
                 elif col == 'cCoreExact':
-                    row.append(lines[8].split(' ')[-1])
+                    row.append(lines[9].split(' ')[-1])
                 else:
                     row.append(lines[-1].split(' ')[-1])
         if row[2][0] != '>':
             row.append(format(float(row[2]) / float(row[1]), '.2f'))
         else:
-            row.append('>' + format(float(row[2][1:]) / float(row[1]), '.2f'))
+            row.append(r'$>$' + format(float(row[2][1:]) / float(row[1]), '.2f'))
+            row[2] = r'$>$' + row[2][1:]
         if row[5][0] != '>':
             row.append(format(float(row[5]) / float(row[3]), '.2f'))
         else:
-            row.append('>' + format(float(row[5][1:]) / float(row[3]), '.2f'))
+            row.append(r'$>$' + format(float(row[5][1:]) / float(row[3]), '.2f'))
+            row[5] = r'$>$' + row[5][1:]
         if row[6][0] != '>':
             row.append(format(float(row[6]) / float(row[1]), '.2f'))
         else:
             row.append(format(float(row[6][1:]) / float(row[1]), '.2f'))
+            row[6] = r'$>$' + row[6][1:]
+        # print(row)
         for i in range(1, 8):
+            if row[i][0] == '>':
+                row[i] = r'$>$' + row[i][1:]
             row[i] = format_time(row[i])
         data.append(row)
-    print(data)
+    # print(data)
     plt.rcParams['text.usetex'] = True
 
     fig, ax = plt.subplots()
     ax.axis('tight')
     ax.axis('off')
     ax.table(cellText=data, colLabels=cols, loc='center', cellLoc='center', edges='horizontal')
-    plt.savefig('./outputs/table_4.png')
+    plt.savefig('./outputs/table_4.pdf')
     plt.show()
 
 
 def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     # todo
-    labels = ['cCoreExact', 'FlowExact']
+    labels = [r'cCoreExact', r'FlowExact']
     result = subprocess.run(['which', 'time'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time = result.stdout.strip()
     data = [[], []]
@@ -210,9 +227,9 @@ def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     for graph in unweighted_graphs:
         executable = './unWExp'
         for i, label in enumerate(labels):
-            file_name = './outputs/' + '_'.join([executable, label, graph]) + '.txt'
+            file_name = './outputs/' + '_'.join([executable[2:], label, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', label, graph])
+                command = ' '.join([executable, './data', label, graph, '0.001'])
                 command = time + ' -v ' + command
                 print(command)
                 run(command, timeout)
@@ -230,9 +247,9 @@ def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     for graph in weighted_graphs:
         executable = './WExp'
         for i, label in enumerate(labels):
-            file_name = './outputs/' + '_'.join([executable, label, graph]) + '.txt'
+            file_name = './outputs/' + '_'.join([executable[2:], label, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', label, graph])
+                command = ' '.join([executable, './data', label, graph, '0.001'])
                 command = time + ' -v ' + command
                 print(command)
                 run(command, timeout)
@@ -246,23 +263,26 @@ def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     data[i].append(float(lines[-14].split(' ')[-1]))
                     if i:
                         x_labels.append(graph)
-    print(data)
-    x = np.arange(len(data[0]))
-    print(x)
+    plt.rcParams['text.usetex'] = True
+    # x = np.arange(len(data[0]))
+    x = [_ for _ in range(len(data[0]))]
+    # print(x)
     total_width, n = 0.8, 2
     width = total_width / n
-    x = x - width / 2
+    # x = x - width / 2
+    x = [_ - width / 2 for _ in x]
     fig, ax = plt.subplots()
     plt.bar(x, data[0], width=width, label=labels[0])
-    plt.bar(x + width, data[1], width=width, label=labels[1], color='y')
+    plt.bar([_ + width for _ in x], data[1], width=width, label=labels[1], color='y')
     # plt.xticks(np.arange(len(data[0])), labels=labels)
     plt.legend()
-    ax.set_xticks(np.arange(3), x_labels)
+    ax.set_xticks([_ + width / 2 for _ in x], x_labels)
     # plt.xlabel('Figure. 6. Memory cost of cCoreExact and FlowExact.')
-    plt.xlabel('Datasets')
-    plt.ylabel('memory cost (kB)')
+    plt.xlabel(r'Datasets')
+    plt.ylabel(r'memory cost (kB)')
     plt.yscale('log')
-    plt.tick_params(which = 'both', direction='in', labelsize="large", top=True, right=True)
+    plt.grid(True)
+    plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
     plt.savefig('./outputs/figure_6.png')
     plt.show()
 
@@ -280,9 +300,9 @@ def table_5(graphs, timeout=72 * 3600):
             row.append('{:,.0f}'.format(float(line[2])))
             row.append('{:,.0f}'.format(float(line[4])))
         for col in cols[-2:]:
-            file_name = './outputs/' + '_'.join([executable, col, graph]) + '.txt'
+            file_name = './outputs/' + '_'.join([executable[2:], col, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', col, graph])
+                command = ' '.join([executable, './data', col, graph, '0.001'])
                 print(command)
                 run(command, timeout)
             with open(file_name, 'r') as file:
@@ -302,7 +322,7 @@ def table_5(graphs, timeout=72 * 3600):
 
 
 def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
-    cols = ['Dataset', r'$\rho(S^*) by cCoreExact$', r'$\hat{\rho}(S^*) by Greedy++$']
+    cols = ['Dataset', r'$\rho(S^*)$ by cCoreExact', r'$\hat{\rho}(S^*)$ by Greedy++']
     result = subprocess.run(['which', 'time'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time = result.stdout.strip()
     data = []
@@ -310,13 +330,15 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         row = [f'{graph}']
         executable = './unWExp'
         for col in cols[1: 3]:
-            col = col.split(' ')[-1][:-1]
+            col = col.split(' ')[-1]
+            eps = '0.001'
             if col[-2] == '+':
                 col = col[:-2] + 'pp'
+                eps = '0.0909'
             # print(col)
-            file_name = './outputs/' + '_'.join([executable, col, graph]) + '.txt'
+            file_name = './outputs/' + '_'.join([executable[2:], col, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', col, graph])
+                command = ' '.join([executable, './data', col, graph, eps])
                 if col == 'cCoreExact':
                     command = time + ' -v ' + command
                 print(command)
@@ -324,7 +346,7 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
             with open(file_name, 'r') as file:
                 lines = file.read().splitlines()
                 if col == 'cCoreExact':
-                    row.append(format(float(lines[4].split(' ')[-1]), '.2f'))
+                    row.append(format(float(lines[5].split(' ')[-1]), '.2f'))
                 else:
                     row.append(format(float(lines[1].split(' ')[-1]), '.2f'))
         data.append(row)
@@ -333,12 +355,14 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         row = [f'{graph}']
         executable = './WExp'
         for col in cols[1: 3]:
-            col = col.split(' ')[-1][:-1]
+            col = col.split(' ')[-1]
+            eps = '0.001'
             if col[-2] == '+':
                 col = col[:-2] + 'pp'
-            file_name = './outputs/' + '_'.join([executable, col, graph]) + '.txt'
+                eps = '0.0909'
+            file_name = './outputs/' + '_'.join([executable[2:], col, graph]) + '.txt'
             if not os.path.exists(file_name):
-                command = ' '.join([executable, './data', col, graph])
+                command = ' '.join([executable, './data', col, graph, eps])
                 if col == 'cCoreExact':
                     command = time + ' -v ' + command
                 print(command)
@@ -346,11 +370,11 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
             with open(file_name, 'r') as file:
                 lines = file.read().splitlines()
                 if col == 'cCoreExact':
-                    row.append(format(float(lines[7].split(' ')[-1]), '.2f'))
+                    row.append(format(float(lines[8].split(' ')[-1]), '.2f'))
                 else:
                     row.append(format(float(lines[-2].split(' ')[-1]), '.2f'))
         data.append(row)
-
+    print(data)
     plt.rcParams['text.usetex'] = True
 
     fig, ax = plt.subplots()
@@ -359,6 +383,196 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     ax.table(cellText=data, colLabels=cols, loc='center', cellLoc='center', edges='horizontal')
     plt.savefig('./outputs/table_6.png')
     plt.show()
+
+
+def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
+    result = subprocess.run(['which', 'time'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    time = result.stdout.strip()
+    x, y1, y2 = [], [], []
+    for graph in unweighted_graphs:
+        executable = './unWExp'
+        algorithm = 'cCoreExact'
+        # print(col)
+        file_name = './outputs/' + '_'.join([executable[2:], algorithm, graph]) + '.txt'
+        if not os.path.exists(file_name):
+            command = ' '.join([executable, './data', algorithm, graph, '0.001'])
+            command = time + ' -v ' + command
+            print(command)
+            run(command, timeout)
+        with open(file_name, 'r') as file:
+            lines = file.read().splitlines()
+            x.append(lines[1].split(' ')[1])
+            y1.append(lines[1].split(' ')[3])
+            y2.append(lines[2].split(' ')[2])
+
+    for graph in weighted_graphs:
+        executable = './WExp'
+        algorithm = 'cCoreExact'
+        # print(col)
+        file_name = './outputs/' + '_'.join([executable[2:], algorithm, graph]) + '.txt'
+        if not os.path.exists(file_name):
+            command = ' '.join([executable, './data', algorithm, graph, '0.001'])
+            command = time + ' -v ' + command
+            print(command)
+            run(command, timeout)
+        with open(file_name, 'r') as file:
+            lines = file.read().splitlines()
+            x.append(lines[4].split(' ')[1])
+            y1.append(lines[4].split(' ')[3])
+            y2.append(lines[5].split(' ')[2])
+
+    plt.rcParams['text.usetex'] = True
+    fig, ax = plt.subplots()
+    plt.grid(True)
+    plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
+    plt.yscale('log')
+    plt.xscale('log')
+    plt.xlabel(r'\#edges')
+    plt.ylabel(r'\#vertices')
+    plt.xlim(1e2, 1e10)
+    plt.ylim(1e0, 1e8)
+    ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10])
+    ax.set_yticks([1e0, 1e2, 1e4, 1e6, 1e8])
+    x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
+    print(x, y1, y2)
+    plt.loglog(x, y1, '^', label=r'\#vertices in whole graph')
+    plt.loglog(x, y2, 'o', label=r'\#vertices in core')
+    plt.legend()
+    plt.savefig('./outputs/figure_7.png')
+    plt.show()
+
+
+def figure_8(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
+    algorithms = ['FlowApp', 'FlowApp*']
+    speedup = []
+    labels = []
+    for graph in unweighted_graphs:
+        executable = './unWExp'
+        # print(col)
+        time = 0
+        for i, algorithm in enumerate(algorithms):
+            file_name = './outputs/' + '_'.join([executable[2:], algorithm, graph]) + '.txt'
+            if not os.path.exists(file_name):
+                command = ' '.join([executable, './data', algorithm, graph, '0.001'])
+                print(command)
+                run(command, timeout)
+            with open(file_name, 'r') as file:
+                lines = file.read().splitlines()
+                if lines[0][:7] == 'Process':
+                    break
+                else:
+                    if time == 0:
+                        time = float(lines[-1].split(' ')[-1])
+                    else:
+                        time /= float(lines[-1].split(' ')[-1])
+        if time:
+            speedup.append(time)
+            labels.append(graph)
+    for graph in weighted_graphs:
+        executable = './WExp'
+        # print(col)
+        time = 0
+        for i, algorithm in enumerate(algorithms):
+            file_name = './outputs/' + '_'.join([executable[2:], algorithm, graph]) + '.txt'
+            if not os.path.exists(file_name):
+                command = ' '.join([executable, './data', algorithm, graph, '0.001'])
+                print(command)
+                run(command, timeout)
+            with open(file_name, 'r') as file:
+                lines = file.read().splitlines()
+                if lines[0][:7] == 'Process':
+                    break
+                else:
+                    if time == 0:
+                        time = float(lines[-1].split(' ')[-1])
+                    else:
+                        time /= float(lines[-1].split(' ')[-1])
+        if time:
+            speedup.append(time)
+            labels.append(graph)
+    fig, ax = plt.subplots()
+    x = [_ for _ in range(len(labels))]
+
+    plt.bar(x, speedup, width=0.5)
+    # plt.xticks(np.arange(len(data[0])), labels=labels)
+    ax.set_xticks(x, labels)
+    # plt.xlabel('Figure. 6. Memory cost of cCoreExact and FlowExact.')
+    plt.xlabel(r'Datasets')
+    plt.ylabel(r'Speed up')
+    plt.grid(True)
+    plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
+    plt.savefig('./outputs/figure_8.png')
+    plt.show()
+
+
+def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
+    algorithms = [r'cCoreApp*', r'Greedypp']
+    speedup = []
+    labels = []
+    x = list(range(60, 100, 5))
+    x = [_ / 100 for _ in x]
+    fig, ax = plt.subplots(2, 2)
+    fig.subplots_adjust(wspace=0.5, hspace=0.5)
+    plt.rcParams['text.usetex'] = True
+
+    for j, graph in enumerate(unweighted_graphs):
+        y = [[], []]
+        executable = './unWExp'
+        # print(col)
+        for eps in x:
+            for i, algorithm in enumerate(algorithms):
+                file_name = './outputs/' + '_'.join([executable[2:], algorithm, graph, str(round(eps, 2))]) + '.txt'
+                if not os.path.exists(file_name):
+                    command = ' '.join([executable, './data', algorithm, graph, str(round(1 - eps, 2))])
+                    print(command)
+                    run(command, timeout, file_name)
+                with open(file_name, 'r') as file:
+                    lines = file.read().splitlines()
+                    y[i].append(float(lines[-1].split(' ')[-1]))
+        ax[0, j].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
+        ax[0, j].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
+        ax[0, j].set_xlabel(r'appro factor')
+        ax[0, j].set_ylabel(r'time (s)')
+        ax[0, j].legend()
+        ax[0, j].set_title(graph)
+
+    for j, graph in enumerate(weighted_graphs):
+        y = [[], []]
+        executable = './WExp'
+        # print(col)
+        for eps in x:
+            for i, algorithm in enumerate(algorithms):
+                file_name = './outputs/' + '_'.join([executable[2:], algorithm, graph, str(round(eps, 2))]) + '.txt'
+                if not os.path.exists(file_name):
+                    command = ' '.join([executable, './data', algorithm, graph, str(round(1 - eps, 2))])
+                    print(command)
+                    run(command, timeout, file_name)
+                with open(file_name, 'r') as file:
+                    lines = file.read().splitlines()
+                    y[i].append(float(lines[-1].split(' ')[-1]))
+        labels.append(graph)
+        ax[1, j].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
+        ax[1, j].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
+        ax[1, j].set_xlabel(r'appro factor')
+        ax[1, j].set_ylabel(r'time (s)')
+        ax[1, j].legend()
+        ax[1, j].set_title(graph)
+
+    # plt.grid(True)
+    # plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
+    # plt.xlabel(r'appro factor')
+    # plt.ylabel(r'time (s)')
+    # plt.xlim(1e2, 1e10)
+    # plt.ylim(1e0, 1e8)
+    # ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10])
+    # ax.set_yticks([1e0, 1e2, 1e4, 1e6, 1e8])
+    # x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
+    # print(x, y1, y2)
+    # plt.loglog(x, y[0], '^', linewidth=2, label=r'\#vertices in whole graph')
+    # plt.loglog(x, y[1], 'o', linewidth=2, label=r'\#vertices in core')
+    plt.savefig('./outputs/figure_9.png')
+    plt.show()
+
 
 # todo
 urls = [
@@ -411,12 +625,20 @@ for i, url in enumerate(urls):
             extract_file(raw_file, datasets[i])
     print(datasets[i] + ' has been extracted.')
 
-os.system('make all')
+# os.system('make all')
 if not os.path.exists('./outputs'):
     os.mkdir('outputs')
-table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-table_5(['WV', 'SF', 'ND'])
-table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-os.system('make clear')
+# table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
+# figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
+# table_5(['WV', 'SF', 'ND'])
+# table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
 
+# table_4(['DP'], ['NM', 'OF', 'FF'])
+# figure_6(['DP'], ['NM', 'OF', 'FF'])
+# table_5(['WV'])
+# table_6(['DP'], ['NM', 'OF', 'FF'])
+# figure_7(['DP'], ['NM', 'OF', 'FF'])
+# figure_8(['DP'], ['NM', 'OF', 'FF'])
+figure_9(['DP'], ['NM', 'OF'])
+
+# os.system('make clear')

@@ -14,13 +14,13 @@ using namespace std;
 
 
 
-float BerkleyFlow(float l, float u, float eps, int V, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
-    float guess;
+float BerkleyFlow(double l, double u, float eps, int V, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+    double guess;
     vector <int> dsg;
     Graph g(V+2);
     vector <pair <int, float>> adjacent;
     float m=0;
-
+//    cout << eps << endl;
     while((u-l)>eps){
         g.renew();
         guess = (u+l)*0.5;
@@ -52,7 +52,7 @@ float BerkleyFlow(float l, float u, float eps, int V, int indicateGraph[], float
         } else {
             l = guess;
         }
-        // cout << "The current gap: " << u-l << endl;
+//         cout << "The current gap: " << u-l << endl;
     }
 
 
@@ -111,13 +111,13 @@ float BerkleyDeno(float l, float u, float eps, int V, int indicateGraph[], float
 
 }
 
-float BerkleyFlowAcc(float l, float u, float eps, int V, int & heapSize, int heapPos[], int indicateGraph[], float strength[], float vertexS[], pair <float, int> heap[], vector <pair <int, float>> adj[]){
-    float guess;
+float BerkleyFlowAcc(double l, double u, float eps, int V, int & heapSize, int heapPos[], int indicateGraph[], float strength[], float vertexS[], pair <float, int> heap[], vector <pair <int, float>> adj[]){
+    double guess;
     vector <int> dsg;
     Graph g(V+2);
     vector <pair <int, float>> adjacent;
     float m=0;
-
+//    cout << "required eps: " << eps << endl;
     while((u-l)>eps){
         g.renew();
         guess = (u+l)*0.5;

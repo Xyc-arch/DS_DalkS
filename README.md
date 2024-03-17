@@ -147,8 +147,11 @@ Here, we provide the instruction for reproducing all of results. Note that the m
 Components in following cmd are like:
 
 ```sh
-./executable /path/to/data/directory algorithm dataset
+./executable /path/to/data/directory algorithm dataset epsilon
 ```
+
+*Note*: If you omit `epsilon`, it will be set to `0.001` by default.
+
 In the following, we use `./data` as the path to our `data` directory containing all data. You should replace it with yours.
 
 
@@ -161,8 +164,8 @@ make unWExp
 ./unWExp ./data cCoreExact YT
 ./unWExp ./data fastDalkS YT
 ./unWExp ./data cCoreApp* YT
-./unWExp ./data Greedypp YT
-./unWExp ./data cCoreGpp YT
+./unWExp ./data Greedypp YT 0.1
+./unWExp ./data cCoreGpp YT 0.1
 ./unWExp ./data FlowExact YT
 ./unWExp ./data cCoreApp YT
 ./unWExp ./data FlowApp YT
@@ -176,8 +179,8 @@ make WExp
 ./WExp ./data cCoreExact NM
 ./WExp ./data fastDalkS NM
 ./WExp ./data cCoreApp* NM
-./WExp ./data Greedypp NM
-./WExp ./data cCoreGpp NM
+./WExp ./data Greedypp NM 0.1
+./WExp ./data cCoreGpp NM 0.1
 ./WExp ./data FlowExact NM
 ./WExp ./data cCoreApp NM
 ./WExp ./data FlowApp NM
