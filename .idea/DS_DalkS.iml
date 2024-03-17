@@ -2,7 +2,11 @@
 <module version="4">
   <component name="FacetManager">
     <facet type="Python" name="Python facet">
+<<<<<<< HEAD
       <configuration sdkName="Python 3.8 (DS_DalkS)" />
+=======
+      <configuration sdkName="Python 3.9 (base)" />
+>>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     </facet>
   </component>
 </module>

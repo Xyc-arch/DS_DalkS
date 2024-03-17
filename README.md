@@ -164,8 +164,13 @@ make unWExp
 ./unWExp ./data cCoreExact YT
 ./unWExp ./data fastDalkS YT
 ./unWExp ./data cCoreApp* YT
+<<<<<<< HEAD
 ./unWExp ./data Greedypp YT 0.0909
 ./unWExp ./data cCoreGpp YT 0.0909
+=======
+./unWExp ./data Greedypp YT 0.1
+./unWExp ./data cCoreGpp YT 0.1
+>>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
 ./unWExp ./data FlowExact YT
 ./unWExp ./data cCoreApp YT
 ./unWExp ./data FlowApp YT
@@ -179,8 +184,13 @@ make WExp
 ./WExp ./data cCoreExact NM
 ./WExp ./data fastDalkS NM
 ./WExp ./data cCoreApp* NM
+<<<<<<< HEAD
 ./WExp ./data Greedypp NM 0.0909
 ./WExp ./data cCoreGpp NM 0.0909
+=======
+./WExp ./data Greedypp NM 0.1
+./WExp ./data cCoreGpp NM 0.1
+>>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
 ./WExp ./data FlowExact NM
 ./WExp ./data cCoreApp NM
 ./WExp ./data FlowApp NM
