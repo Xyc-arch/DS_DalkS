@@ -8,7 +8,7 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -60,13 +60,13 @@ float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[],
 
 float berkleyexp3(int V, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
 
-float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
+float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps);
 
-float soda22exp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
+float soda22exp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps);
 
-float soda22exp3(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
+float soda22exp3(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps);
 
-float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
+float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps);
 
 // new
 int getV(string name, string split,int startLine, int lineNum);

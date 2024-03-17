@@ -5,8 +5,12 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <cmath>
+#include <vector>
+#include <cfloat>
+#include <algorithm>
+#include <map>
 #include <math.h>
 #include "experiment2.h"
 using namespace std;
@@ -494,7 +498,7 @@ double dalksMag(int T){
 
 
 
-int weightexp(string path, string mode, string dataset){
+int weightexp(string path, string mode, string dataset, double eps){
 
     string file;
     int V;
@@ -503,7 +507,7 @@ int weightexp(string path, string mode, string dataset){
 
     // lbimseti
     if (dataset == "LB") {
-        file = path + "/edges.csv";
+        file = path + "/LB.csv";
         V = 220970;
         startLine = 2;
         lineNum = 17359347;
@@ -511,7 +515,7 @@ int weightexp(string path, string mode, string dataset){
 
     // test (NM)
     if (dataset == "NM") {
-        file = path + "/test.txt";
+        file = path + "/NM.txt";
         V = 16726;
         startLine = 1;
         lineNum = 95188;
@@ -519,7 +523,7 @@ int weightexp(string path, string mode, string dataset){
 
     // open-flight
     if (dataset == "OF") {
-        file = path + "/open-flight.txt";
+        file = path + "/OF.txt";
         V = 7976;
         startLine = 1;
         lineNum = 30501;
@@ -528,7 +532,7 @@ int weightexp(string path, string mode, string dataset){
 
     // facebook-like social network
     if (dataset == "FF") {
-        file = path + "/OF_one-mode_weightedmsg_sum.txt";
+        file = path + "/FF.txt";
         V = 899;
         startLine = 1;
         lineNum = 142760;
@@ -553,13 +557,13 @@ int weightexp(string path, string mode, string dataset){
     }
 
     if (mode == "fastDalkS") DALKSexp(V, vertexNum, 1000, 8, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreExact") berkleyexp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreExact") berkleyexp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, edgeNum);
     if (mode == "FlowExact") berkleyexp3(V, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "Greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
 
     return 0;
 
@@ -698,7 +702,7 @@ void readFraudarGraph(string name, string split, bool fromZero, int startLine, i
 }
 
 
-int weightexp2(string path, string mode, string dataset){
+int weightexp2(string path, string mode, string dataset, double eps){
 
     string file;
     int startLine;
@@ -709,7 +713,7 @@ int weightexp2(string path, string mode, string dataset){
     // live journal parameter set
 
     if (dataset == "LW") {
-        file = path + "/com-lj.ungraph.txt";
+        file = path + "/LJ.txt";
         startLine = 5;
         lineNum = 34681193;
         V=4036538;
@@ -719,7 +723,7 @@ int weightexp2(string path, string mode, string dataset){
 
     // com-YouTube parameter set
     if (dataset == "YW") {
-        file = path + "/com-youtube.ungraph.txt";
+        file = path + "/YT.txt";
         startLine = 5;
         V = 1157827;
         lineNum = 2987628;
@@ -744,13 +748,13 @@ int weightexp2(string path, string mode, string dataset){
 
     
     if (mode == "fastDalkS") DALKSexp(V, vertexNum, 1000, 8, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreExact") berkleyexp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreExact") berkleyexp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, edgeNum);
     if (mode == "FlowExact") berkleyexp3(V, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "Greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
 
     return 0;
 }
@@ -764,6 +768,7 @@ int main(int argc, char *argv[]){
     string path;
     string mode;
     string dataset;
+    double eps = 0.001;
 
     ss << argv[1];
     ss >> path;
@@ -780,14 +785,21 @@ int main(int argc, char *argv[]){
     ss << argv[3];
     ss >> dataset;
 
+    if (argc == 5) {
+        ss.clear();
+        ss.str("");
+        ss << argv[4];
+        ss >> eps;
+    }
+
     bool synthetic = false;
 
     std::vector<std::string> synList{"LW", "YW"};
 
     if (std::find(std::begin(synList), std::end(synList), dataset) != std::end(synList)) synthetic = true;
 
-    if (synthetic) weightexp2(path, mode, dataset);
-    else weightexp(path, mode, dataset);
+    if (synthetic) weightexp2(path, mode, dataset, eps);
+    else weightexp(path, mode, dataset, eps);
 
 
 

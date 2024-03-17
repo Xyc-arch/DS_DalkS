@@ -1,18 +1,34 @@
 
-# from cProfile import label
 import matplotlib.pyplot as plt
-# import numpy as np
+import numpy as np
+
+
+# def read_txt(inputpath):
+#     D_tilde_size = []
+#     temp_size = 0
+#     with open(inputpath, 'r', encoding='utf-8') as infile:
+#         for line in infile:
+#             data_line = line.strip("\n").split() 
+#             temp_size += int(data_line[0])
+#             D_tilde_size.append(temp_size)
+#     return D_tilde_size
 
 
 def read_txt(inputpath):
+    pairs = []
     D_tilde_size = []
     temp_size = 0
     with open(inputpath, 'r', encoding='utf-8') as infile:
         for line in infile:
-            data_line = line.strip("\n").split() 
-            temp_size += int(data_line[0])
-            D_tilde_size.append(temp_size)
+            data_line = line.strip("\n").split()
+            pairs.append((int(data_line[0]), eval(data_line[1])))
+    sorted_pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
+    for pair in sorted_pairs:
+        temp_size += pair[0]  
+        D_tilde_size.append(temp_size)
+    
     return D_tilde_size
+
 
 
 def graph_one(inputpath, name, N, c):
@@ -75,7 +91,25 @@ def graph_one(inputpath, name, N, c):
 
 
 
+def find_near_subgraph(inputpath, q, graph_num=5):
+    D_tilde_size = read_txt(inputpath)
+    pivot_index = next((i for i, x in enumerate(D_tilde_size) if x >= q), None)
+    if pivot_index is None:
+        pivot_index = len(D_tilde_size) - 1
     
+    closest_smaller_than_q = []
+    closest_larger_than_or_equal_to_q = []
+    
+    if pivot_index > 0:  
+        start_index = max(0, pivot_index - graph_num)  
+        closest_smaller_than_q = D_tilde_size[start_index:pivot_index]
+    
+    end_index = min(len(D_tilde_size), pivot_index + graph_num)  
+    closest_larger_than_or_equal_to_q = D_tilde_size[pivot_index:end_index]
+    
+    return closest_smaller_than_q + closest_larger_than_or_equal_to_q
+    
+
 
 
 
@@ -119,12 +153,13 @@ if __name__ == "__main__":
     # plt.legend()
     # plt.show()
 
-    graph_one("./Density-Friendly/testExact.txt", "NM", 16264, "orange")
-    graph_one("./Density-Friendly/dblpExact.txt", "DP", 317080, "blue")
-    graph_one("./Density-Friendly/amazonExact.txt", "AZ", 334863, "green")
-    graph_one("./Density-Friendly/comljExact.txt", "LJ", 3997962, "purple")
+    graph_one("./testExact.txt", "NM", 16264, "orange")
+    graph_one("./dblpExact.txt", "DP", 317080, "blue")
+    graph_one("./amazonExact.txt", "AZ", 334863, "green")
+    graph_one("./comljExact.txt", "LJ", 3997962, "purple")
     
-    
+    closest = find_near_subgraph("./comljExact.txt", 50000)
+    print(closest)
     # plt.legend()
     # plt.ylabel("approximation")
     # plt.xlabel("k/(# vertices in whole graph)")

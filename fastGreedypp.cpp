@@ -5,8 +5,11 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <math.h>
+#include <vector>
+#include <cfloat>
+#include <map>
 #include "experiment.h"
 #include "experiment2.h"
 #include "experiment3.h"
@@ -17,10 +20,12 @@ using namespace std;
 
 
 
-int fasterGreedypp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+int fasterGreedypp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps){
     clock_t start, finish;
     double duration;
-    int T = 1000;
+    eps = 1.0 / (1.0 - eps) - 1;
+    int T = (int) (1.0 / eps) * (1.0 / eps);
+//    cout << T << endl;
     int cp=1;
     int heapSize=vertexNum;
     int optSize = vertexNum;
@@ -136,7 +141,7 @@ int fasterGreedypp(int V, int vertexNum, long double totalW, int indicateGraph[]
 
     // iteration begins
     for (int t=1; t<=T; t++){
-        cout << "iter " << t << endl;
+//        cout << "iter " << t << endl;
         totalW = originTotalW;
         heapSize = vertexNum;
         optDen = totalW/heapSize;
@@ -182,90 +187,90 @@ int fasterGreedypp(int V, int vertexNum, long double totalW, int indicateGraph[]
 
 
 
-int fastUnweighted(string path, string dataset){
-
-    string file;
-    int startLine;
-    int lineNum;
-    int V;
-    bool fromZero;
-
-    // live journal parameter set
-    if (dataset == "LJ") {
-        file = path + "/com-lj.ungraph.txt";
-        startLine = 5;
-        lineNum = 34681193;
-        V=4036538;
-        fromZero = true;
-    }
-
-     // friendster parameter set
-    if (dataset == "FT") {
-        file = path + "/com-friendster.ungraph.txt";
-        startLine = 5;
-        lineNum = 1806067139;
-        V=124836179;
-        fromZero = false;
-    }
-
-
-    // orkut parameter set
-    if (dataset == "OK") {
-        file = path + "/com-orkut.ungraph.txt";
-        startLine = 5;
-        V = 3072626;
-        lineNum = 117185087;
-        fromZero = false;
-    }
-
-
-    // com-YouTube parameter set
-    if (dataset == "YT") {
-        file = path + "/com-youtube.ungraph.txt";
-        startLine = 5;
-        V = 1157827;
-        lineNum = 2987628;
-        fromZero = false;
-    }
-
-
-    // com-dblp parameter set
-    if (dataset == "DP") {
-        file = path + "/com-dblp.ungraph.txt";
-        startLine = 5;
-        lineNum = 1049866;
-        V = 425957;
-        fromZero = true;
-    }
-
-
-    // com-Amazon
-    if (dataset == "AZ") {
-        file = path + "/com-amazon.ungraph.txt";
-        startLine = 5;
-        lineNum = 925876;
-        V=548551;
-        fromZero = false;
-    }
-
-
-
-    int edgeNum;
-    int vertexNum = 0;
-    long double totalW = 0;
-    int* indicateGraph = new int[V+1]{0};
-    float* strength = new float[V+1]{0};
-    float* vertexS = new float[V+1]{0};
-    vector <pair <int, float>>* adj = new vector <pair <int, float>> [V+1];
-
-
-    readtxtGraph(file, "	", fromZero, vertexNum, edgeNum, startLine, lineNum, totalW, indicateGraph, strength, vertexS, adj);
-
-
-    fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
-
-    return 0;
-}
+//int fastUnweighted(string path, string dataset){
+//
+//    string file;
+//    int startLine;
+//    int lineNum;
+//    int V;
+//    bool fromZero;
+//
+//    // live journal parameter set
+//    if (dataset == "LJ") {
+//        file = path + "/com-lj.ungraph.txt";
+//        startLine = 5;
+//        lineNum = 34681193;
+//        V=4036538;
+//        fromZero = true;
+//    }
+//
+//     // friendster parameter set
+//    if (dataset == "FT") {
+//        file = path + "/com-friendster.ungraph.txt";
+//        startLine = 5;
+//        lineNum = 1806067139;
+//        V=124836179;
+//        fromZero = false;
+//    }
+//
+//
+//    // orkut parameter set
+//    if (dataset == "OK") {
+//        file = path + "/com-orkut.ungraph.txt";
+//        startLine = 5;
+//        V = 3072626;
+//        lineNum = 117185087;
+//        fromZero = false;
+//    }
+//
+//
+//    // com-YouTube parameter set
+//    if (dataset == "YT") {
+//        file = path + "/com-youtube.ungraph.txt";
+//        startLine = 5;
+//        V = 1157827;
+//        lineNum = 2987628;
+//        fromZero = false;
+//    }
+//
+//
+//    // com-dblp parameter set
+//    if (dataset == "DP") {
+//        file = path + "/com-dblp.ungraph.txt";
+//        startLine = 5;
+//        lineNum = 1049866;
+//        V = 425957;
+//        fromZero = true;
+//    }
+//
+//
+//    // com-Amazon
+//    if (dataset == "AZ") {
+//        file = path + "/com-amazon.ungraph.txt";
+//        startLine = 5;
+//        lineNum = 925876;
+//        V=548551;
+//        fromZero = false;
+//    }
+//
+//
+//
+//    int edgeNum;
+//    int vertexNum = 0;
+//    long double totalW = 0;
+//    int* indicateGraph = new int[V+1]{0};
+//    float* strength = new float[V+1]{0};
+//    float* vertexS = new float[V+1]{0};
+//    vector <pair <int, float>>* adj = new vector <pair <int, float>> [V+1];
+//
+//
+//    readtxtGraph(file, "	", fromZero, vertexNum, edgeNum, startLine, lineNum, totalW, indicateGraph, strength, vertexS, adj);
+//
+//
+//    fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+//
+//    return 0;
+//}
 
 
 

@@ -5,8 +5,10 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <math.h>
+#include <vector>
+#include <map>
 #include "experiment.h"
 #include "dinic.h"
 using namespace std;
@@ -466,7 +468,7 @@ float berkleyexp1(int V, int vertexNum, long double totalW, int indicateGraph[],
 
 
 
-float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], int edgeNum){
     clock_t start, finish, start0, finish0;
     double duration, duration0;
 
@@ -555,6 +557,7 @@ float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[],
         heapExtractMin(heap, heapSize, heapPos, adj, indicateGraph);
     }
 
+    cout << "#Edges " << edgeNum << " #Vertices " << vertexNum <<endl;
     cout << "Heap size " << heapSize << endl;
     cout << "threshold " << thres << endl;
     cout << "max strength " << maxS << endl;
@@ -576,7 +579,7 @@ float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[],
         strength[heap[i].second] += sum;
     }
 
-    d = BerkleyFlowAcc(thres, min(maxS, 2*thres), 0.001, V, heapSize, heapPos, indicateGraph, strength, vertexS, heap, adj);
+    d = BerkleyFlowAcc((double) thres, (double) min(maxS, 2*thres), max(1e-12, 1.0 / heapSize / (heapSize - 1)), V, heapSize, heapPos, indicateGraph, strength, vertexS, heap, adj);
     finish = clock();
     cout <<"optimal density: "<< d << endl;
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
@@ -597,17 +600,17 @@ float berkleyexp3(int V, int indicateGraph[], float strength[], float vertexS[],
     }
 
     start = clock();
-    resultDen = BerkleyFlow(0, maxS, 0.001, V, indicateGraph, strength, vertexS, adj);
+    resultDen = BerkleyFlow(0, (double) maxS, max(1e-12, 1.0 / V / (V - 1)), V, indicateGraph, strength, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "berkley density: " << resultDen << endl;
+    cout << duration << endl;
 
     return 0;
 }
 
 
-float soda22exp1(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+float soda22exp1(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps){
     clock_t start, finish;
     double duration;
 
@@ -678,7 +681,7 @@ float soda22exp1(int V, int vertexNum, long double totalW, int indicateGraph[], 
     }
 
 //    resultDen = soda22FlowAcc(thres, maxS, 0.001, V, edgeNum, heapSize, heapPos, indicateGraph, vertexS, strength, heap, adj);
-    resultDen = soda22FlowOriginAcc(thres, maxS, 0.001, V, edgeNum, heapSize, heapPos, indicateGraph, vertexS, strength, heap, adj);
+    resultDen = soda22FlowOriginAcc(thres, maxS, eps, V, edgeNum, heapSize, heapPos, indicateGraph, vertexS, strength, heap, adj);
     cout << resultDen << endl;
 
     finish = clock();
@@ -690,7 +693,7 @@ float soda22exp1(int V, int vertexNum, long double totalW, int indicateGraph[], 
 
 
 
-float soda22exp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+float soda22exp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps){
 
     clock_t start, finish, start0, finish0;
     double duration, duration0;
@@ -805,7 +808,7 @@ float soda22exp2(int V, int vertexNum, long double totalW, int indicateGraph[], 
         strength[heap[i].second] += sum;
     }
 
-    resultDen = soda22FlowAcc(thres, min(maxS, 2*thres), 0.001, V, edgeNum, heapSize, heapPos, indicateGraph, vertexS, strength, heap, adj);
+    resultDen = soda22FlowAcc(thres, min(maxS, 2*thres), eps, V, edgeNum, heapSize, heapPos, indicateGraph, vertexS, strength, heap, adj);
     //resultDen = soda22FlowOriginAcc(thres, min(maxS, 2*thres), 0.001, V, edgeNum, heapSize, heapPos, indicateGraph, vertexS, strength, heap, adj);
     cout << resultDen << endl;
 
@@ -818,7 +821,7 @@ float soda22exp2(int V, int vertexNum, long double totalW, int indicateGraph[], 
 
 
 
-float soda22exp3(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+float soda22exp3(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps){
     clock_t start, finish;
     double duration;
     float resultDen;
@@ -830,17 +833,17 @@ float soda22exp3(int V, long double totalW, int indicateGraph[], float strength[
     }
 
     start = clock();
-    resultDen = soda22FlowApp(0, maxS, 0.001, V, int(totalW), indicateGraph, vertexS, adj);
+    resultDen = soda22FlowApp(0, maxS, eps, V, int(totalW), indicateGraph, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "soda22 modified density: " << resultDen << endl;
+    cout << duration << endl;
 
     return 0;
 }
 
 
-float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps){
     clock_t start, finish;
     double duration;
     float resultDen;
@@ -852,11 +855,11 @@ float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[
     }
 
     start = clock();
-    resultDen = soda22FlowOrigin(0, maxS, 0.001, V, int(totalW), indicateGraph, vertexS, adj);
+    resultDen = soda22FlowOrigin(0, maxS, eps, V, int(totalW), indicateGraph, vertexS, adj);
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << endl;
     cout << "soda22 origin density: " << resultDen << endl;
+    cout << duration << endl;
 
     return 0;
 }
@@ -873,10 +876,12 @@ float soda22exp4(int V, long double totalW, int indicateGraph[], float strength[
 
 
 
-float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], double eps){
     clock_t start, finish;
     double duration;
-    int T = 1000;
+    eps = 1.0 / (1.0 - eps) - 1;
+    int T = (int) (1.0 / eps) * (1.0 / eps);
+//    cout << T << endl;
     int cp=1;
     int heapSize=vertexNum;
     int optSize = vertexNum;
@@ -892,7 +897,7 @@ float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[],
 
     start = clock();
     for (int t=1; t<=T; t++){
-        cout << "iter " << t << endl;
+//        cout << "iter " << t << endl;
         totalW = originTotalW;
         heapSize = vertexNum;
         optDen = totalW/heapSize;

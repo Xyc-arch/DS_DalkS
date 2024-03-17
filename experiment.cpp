@@ -5,7 +5,9 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+#include <vector>
+#include <utility>
+//#include <bits/stdc++.h>
 #include <math.h>
 #include "experiment.h"
 #include "dinic.h"
@@ -16,7 +18,7 @@
 
 
 
-int unWeightexp(string path, string mode, string dataset){
+int unWeightexp(string path, string mode, string dataset, double eps){
 
     string file;
     int startLine;
@@ -107,14 +109,14 @@ int unWeightexp(string path, string mode, string dataset){
     readtxtGraph(file, "	", fromZero, vertexNum, edgeNum, startLine, lineNum, totalW, indicateGraph, strength, vertexS, adj);
 
     if (mode == "fastDalkS") DALKSexp(V, vertexNum, 11578, 8, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreExact") berkleyexp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreExact") berkleyexp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, edgeNum);
     if (mode == "FlowExact") berkleyexp3(V, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj); 
-    if (mode == "cCoreApp") soda22exp1(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj); 
-    if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj);  
-    if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
-    if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
+    if (mode == "cCoreApp*") soda22exp2(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "cCoreApp") soda22exp1(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "FlowApp*") soda22exp3(V, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "FlowApp") soda22exp4(V, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "Greedypp") greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
+    if (mode == "cCoreGpp") fasterGreedypp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj, eps);
 
 
 //    greedyPPexp(V, vertexNum, totalW, indicateGraph, strength, vertexS, adj);
@@ -136,6 +138,7 @@ int main(int argc, char *argv[]){
     string path;
     string mode;
     string dataset;
+    double eps=0.001;
 
     ss << argv[1];
     ss >> path;
@@ -152,12 +155,19 @@ int main(int argc, char *argv[]){
     ss << argv[3];
     ss >> dataset;
 
+    if (argc == 5) {
+        ss.clear();
+        ss.str("");
+        ss << argv[4];
+        ss >> eps;
+    }
+
     // cout << path << endl;
     // cout << mode << endl;
     // cout << dataset << endl;
 
 
-    unWeightexp(path, mode, dataset);
+    unWeightexp(path, mode, dataset, eps);
     return 0;
 }
 

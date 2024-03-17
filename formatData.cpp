@@ -6,7 +6,7 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <math.h>
 #include "experiment.h"
 #include "dinic.h"
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "LJ") {
         input = path + "/LJ.txt";
-        output = path + "/comljnet.txt";
+        output = path + "/LJnet.txt";
         split = "	";
         startLine = 5;
         lineNum = 34681193;
@@ -102,7 +102,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "NM") {
         input = path + "/NM.txt";
-        output = path + "/testnet.txt";
+        output = path + "/NMnet.txt";
         split = " ";
         startLine = 1;
         lineNum = 95188;
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "DP") {
         input = path + "/DP.txt";
-        output = path + "/dblpnet.txt";
+        output = path + "/DPnet.txt";
         split = "	";
         startLine = 5;
         lineNum = 1049866;
@@ -124,7 +124,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "AZ") {
         input = path + "/AZ.txt";
-        output = path + "/amazonnet.txt";
+        output = path + "/AZnet.txt";
         split = "	";
         startLine = 5;
         lineNum = 925876;
