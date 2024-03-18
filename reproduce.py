@@ -106,12 +106,6 @@ def format_time(time):
 
 
 def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
-<<<<<<< HEAD
-    
-=======
-    # todo
-    timeout = 100
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     cols = ['Dataset', 'cCoreExact', 'FlowExact', 'cCoreApp*', 'FlowApp', 'FlowApp*', 'Greedy++', 'cCoreG++',
             r'$\frac{FlowExact}{cCoreExact}$', r'$\frac{FlowApp*}{cCoreApp*}$', r'$\frac{Greedy++}{cCoreExact}$']
     result = subprocess.run(['which', 'time'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -222,11 +216,6 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
 
 
 def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
-<<<<<<< HEAD
-    
-=======
-    # todo
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     labels = [r'cCoreExact', r'FlowExact']
     result = subprocess.run(['which', 'time'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     time = result.stdout.strip()
@@ -291,11 +280,7 @@ def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     plt.yscale('log')
     plt.grid(True)
     plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
-<<<<<<< HEAD
     plt.savefig('./outputs/figure_6.pdf')
-=======
-    plt.savefig('./outputs/figure_6.png')
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     plt.show()
 
 
@@ -329,11 +314,7 @@ def table_5(graphs, timeout=72 * 3600):
     ax.axis('tight')
     ax.axis('off')
     ax.table(cellText=data, colLabels=cols, loc='center', cellLoc='center', edges='horizontal')
-<<<<<<< HEAD
     plt.savefig('./outputs/table_5.pdf')
-=======
-    plt.savefig('./outputs/table_5.png')
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     plt.show()
 
 
@@ -397,11 +378,7 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     ax.axis('tight')
     ax.axis('off')
     ax.table(cellText=data, colLabels=cols, loc='center', cellLoc='center', edges='horizontal')
-<<<<<<< HEAD
     plt.savefig('./outputs/table_6.pdf')
-=======
-    plt.savefig('./outputs/table_6.png')
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     plt.show()
 
 
@@ -458,11 +435,7 @@ def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     plt.loglog(x, y1, '^', label=r'\#vertices in whole graph')
     plt.loglog(x, y2, 'o', label=r'\#vertices in core')
     plt.legend()
-<<<<<<< HEAD
     plt.savefig('./outputs/figure_7.pdf')
-=======
-    plt.savefig('./outputs/figure_7.png')
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     plt.show()
 
 
@@ -525,11 +498,7 @@ def figure_8(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     plt.ylabel(r'Speed up')
     plt.grid(True)
     plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
-<<<<<<< HEAD
     plt.savefig('./outputs/figure_8.pdf')
-=======
-    plt.savefig('./outputs/figure_8.png')
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
     plt.show()
 
 
@@ -557,21 +526,12 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                 with open(file_name, 'r') as file:
                     lines = file.read().splitlines()
                     y[i].append(float(lines[-1].split(' ')[-1]))
-<<<<<<< HEAD
         ax[j // 2, j % 2].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
         ax[j // 2, j % 2].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
         ax[j // 2, j % 2].set_xlabel(r'appro factor')
         ax[j // 2, j % 2].set_ylabel(r'time (s)')
         ax[j // 2, j % 2].legend()
         ax[j // 2, j % 2].set_title(graph)
-=======
-        ax[0, j].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
-        ax[0, j].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
-        ax[0, j].set_xlabel(r'appro factor')
-        ax[0, j].set_ylabel(r'time (s)')
-        ax[0, j].legend()
-        ax[0, j].set_title(graph)
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
 
     for j, graph in enumerate(weighted_graphs):
         y = [[], []]
@@ -588,21 +548,12 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     lines = file.read().splitlines()
                     y[i].append(float(lines[-1].split(' ')[-1]))
         labels.append(graph)
-<<<<<<< HEAD
         ax[1, j + 1].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
         ax[1, j + 1].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
         ax[1, j + 1].set_xlabel(r'appro factor')
         ax[1, j + 1].set_ylabel(r'time (s)')
         ax[1, j + 1].legend()
         ax[1, j + 1].set_title(graph)
-=======
-        ax[1, j].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
-        ax[1, j].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
-        ax[1, j].set_xlabel(r'appro factor')
-        ax[1, j].set_ylabel(r'time (s)')
-        ax[1, j].legend()
-        ax[1, j].set_title(graph)
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
 
     # plt.grid(True)
     # plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
@@ -616,7 +567,6 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     # print(x, y1, y2)
     # plt.loglog(x, y[0], '^', linewidth=2, label=r'\#vertices in whole graph')
     # plt.loglog(x, y[1], 'o', linewidth=2, label=r'\#vertices in core')
-<<<<<<< HEAD
     plt.savefig('./outputs/figure_9.pdf')
     plt.show()
 
@@ -658,13 +608,8 @@ def figure_10(path):
     plt.show()
 
 
-=======
-    plt.savefig('./outputs/figure_9.png')
-    plt.show()
 
 
-# todo
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
 urls = [
     'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-orkut.ungraph.txt.gz',
@@ -696,12 +641,6 @@ datasets = [
     'ND'
 ]
 
-<<<<<<< HEAD
-=======
-# # todo
-# urls = [urls[4], urls[-5]]
-# datasets = [datasets[4], datasets[-5]]
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
 
 if not os.path.exists('./data'):
     os.mkdir('data')
@@ -718,7 +657,6 @@ for i, url in enumerate(urls):
             extract_file(raw_file, datasets[i])
     print(datasets[i] + ' has been extracted.')
 
-<<<<<<< HEAD
 os.system('make all')
 if not os.path.exists('./outputs'):
     os.mkdir('outputs')
@@ -728,26 +666,7 @@ table_5(['WV', 'SF', 'ND'])
 table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
 figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
 figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-figure_9(['DP', 'YT', 'LJ], ['LB'])
+figure_9(['DP', 'YT', 'LJ'], ['LB'])
 figure_10('./Density-Friendly/output.txt')
 
 os.system('make clear')
-=======
-# os.system('make all')
-if not os.path.exists('./outputs'):
-    os.mkdir('outputs')
-# table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-# figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-# table_5(['WV', 'SF', 'ND'])
-# table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-
-# table_4(['DP'], ['NM', 'OF', 'FF'])
-# figure_6(['DP'], ['NM', 'OF', 'FF'])
-# table_5(['WV'])
-# table_6(['DP'], ['NM', 'OF', 'FF'])
-# figure_7(['DP'], ['NM', 'OF', 'FF'])
-# figure_8(['DP'], ['NM', 'OF', 'FF'])
-figure_9(['DP'], ['NM', 'OF'])
-
-# os.system('make clear')
->>>>>>> e247cc79a113bbeb6e5e1bdd409d2c3353120406
