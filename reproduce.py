@@ -656,7 +656,7 @@ def figure_10(path):
 
 
 urls = [
-    # 'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
+    'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-orkut.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-lj.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-youtube.ungraph.txt.gz',
@@ -671,7 +671,7 @@ urls = [
     'https://snap.stanford.edu/data/web-NotreDame.txt.gz'
 ]
 datasets = [
-    # 'FT',
+    'FT',
     'OK',
     'LJ',
     'YT',
@@ -704,21 +704,12 @@ for i, url in enumerate(urls):
 os.system('make all')
 if not os.path.exists('outputs'):
     os.mkdir('outputs')
-# table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-# figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-# table_5(['WV', 'SF', 'ND'], 60)
-# table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-# figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-# figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-# figure_9(['DP', 'YT', 'LJ'], ['LB'], 60)
-# figure_10('./Density-Friendly/output.txt')
-
-table_4(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_6(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
 table_5(['WV', 'SF', 'ND'], 60)
-table_6(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_7(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_8(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
 figure_9(['DP', 'YT', 'LJ'], ['LB'], 60)
 figure_10('./Density-Friendly/output.txt')
 
