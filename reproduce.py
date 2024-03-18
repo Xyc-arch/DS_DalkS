@@ -479,7 +479,6 @@ def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10])
     ax.set_yticks([1e0, 1e2, 1e4, 1e6, 1e8])
     # x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
-    print(x, y1, y2)
     plt.loglog(x, y1, '^', label=r'\#vertices in whole graph')
     plt.loglog(x, y2, 'o', label=r'\#vertices in core')
     plt.legend()
@@ -576,15 +575,29 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     try:
                         y[i].append(float(lines[-1].split(' ')[-1]))
                     except IndexError:
-                        y[i].append('nan')
+                        y[i].append(timeout)
                     except ValueError:
-                        y[i].append('nan')
-
+                        y[i].append(timeout)
         ax[j // 2, j % 2].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
         ax[j // 2, j % 2].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
+        # ax[j // 2, j % 2].set_ylim(0, timeout)
         ax[j // 2, j % 2].set_xlabel(r'appro factor')
         ax[j // 2, j % 2].set_ylabel(r'time (s)')
+        ax[j // 2, j % 2].set_yscale('log')
         ax[j // 2, j % 2].legend()
+        current_ticks = ax[j // 2, j % 2].get_yticks()
+        current_labels = [item.get_text() for item in ax[j // 2, j % 2].get_yticklabels()]
+        index_to_replace = 0
+        for i, tick in enumerate(current_ticks.tolist()):
+            try:
+                if tick <= timeout < current_ticks.tolist()[i + 1]:
+                    index_to_replace = i + 1
+            except IndexError:
+                index_to_replace = i
+        current_labels[index_to_replace] = 'inf'
+        current_ticks[index_to_replace] = timeout
+        ax[j // 2, j % 2].set_yticks(current_ticks[:index_to_replace + 1])
+        ax[j // 2, j % 2].set_yticklabels(current_labels[:index_to_replace + 1])
         ax[j // 2, j % 2].set_title(graph)
 
     for j, graph in enumerate(weighted_graphs):
@@ -603,15 +616,29 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     try:
                         y[i].append(float(lines[-1].split(' ')[-1]))
                     except IndexError:
-                        y[i].append('nan')
+                        y[i].append(timeout)
                     except ValueError:
-                        y[i].append('nan')
-        labels.append(graph)
+                        y[i].append(timeout)
         ax[1, j + 1].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
         ax[1, j + 1].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
+        # ax[1, j + 1].set_ylim(0, timeout)
         ax[1, j + 1].set_xlabel(r'appro factor')
         ax[1, j + 1].set_ylabel(r'time (s)')
+        ax[1, j + 1].set_yscale('log')
         ax[1, j + 1].legend()
+        current_ticks = ax[1, j + 1].get_yticks()
+        current_labels = [item.get_text() for item in ax[1, j + 1].get_yticklabels()]
+        index_to_replace = 0
+        for i, tick in enumerate(current_ticks.tolist()):
+            try:
+                if tick <= timeout < current_ticks.tolist()[i + 1]:
+                    index_to_replace = i + 1
+            except IndexError:
+                index_to_replace = i
+        current_labels[index_to_replace] = 'inf'
+        current_ticks[index_to_replace] = timeout
+        ax[1, j + 1].set_yticks(current_ticks[:index_to_replace + 1])
+        ax[1, j + 1].set_yticklabels(current_labels[:index_to_replace + 1])
         ax[1, j + 1].set_title(graph)
 
     plt.savefig('./outputs/figure_9.pdf')
