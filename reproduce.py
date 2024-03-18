@@ -136,21 +136,30 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     row.append(lines[6].split(' ')[-1])
                 else:
                     row.append(lines[-1].split(' ')[-1])
-        if row[2][0] != '>':
-            row.append(format(float(row[2]) / float(row[1]), '.2f'))
+        if row[1][0] != '>':
+            if row[2][0] != '>':
+                row.append(format(float(row[2]) / float(row[1]), '.2f'))
+            else:
+                row.append(r'$>$' + format(float(row[2][1:]) / float(row[1]), '.2f'))
+                row[2] = r'$>$' + row[2][1:]
         else:
-            row.append(r'$>$' + format(float(row[2][1:]) / float(row[1]), '.2f'))
-            row[2] = r'$>$' + row[2][1:]
-        if row[5][0] != '>':
-            row.append(format(float(row[5]) / float(row[3]), '.2f'))
+            row.append('---')
+        if row[3][0] != '>':
+            if row[5][0] != '>':
+                row.append(format(float(row[5]) / float(row[3]), '.2f'))
+            else:
+                row.append(r'$>$' + format(float(row[5][1:]) / float(row[3]), '.2f'))
+                row[5] = r'$>$' + row[5][1:]
         else:
-            row.append(r'$>$' + format(float(row[5][1:]) / float(row[3]), '.2f'))
-            row[5] = r'$>$' + row[5][1:]
-        if row[6][0] != '>':
-            row.append(format(float(row[6]) / float(row[1]), '.2f'))
+            row.append('---')
+        if row[1][0] != '>':
+            if row[6][0] != '>':
+                row.append(format(float(row[6]) / float(row[1]), '.2f'))
+            else:
+                row.append(format(float(row[6][1:]) / float(row[1]), '.2f'))
+                row[6] = r'$>$' + row[6][1:]
         else:
-            row.append(format(float(row[6][1:]) / float(row[1]), '.2f'))
-            row[6] = r'$>$' + row[6][1:]
+            row.append('---')
         # print(row)
         for i in range(1, 8):
             if row[i][0] == '>':
@@ -183,21 +192,30 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     row.append(lines[9].split(' ')[-1])
                 else:
                     row.append(lines[-1].split(' ')[-1])
-        if row[2][0] != '>':
-            row.append(format(float(row[2]) / float(row[1]), '.2f'))
+        if row[1][0] != '>':
+            if row[2][0] != '>':
+                row.append(format(float(row[2]) / float(row[1]), '.2f'))
+            else:
+                row.append(r'$>$' + format(float(row[2][1:]) / float(row[1]), '.2f'))
+                row[2] = r'$>$' + row[2][1:]
         else:
-            row.append(r'$>$' + format(float(row[2][1:]) / float(row[1]), '.2f'))
-            row[2] = r'$>$' + row[2][1:]
-        if row[5][0] != '>':
-            row.append(format(float(row[5]) / float(row[3]), '.2f'))
+            row.append('---')
+        if row[3][0] != '>':
+            if row[5][0] != '>':
+                row.append(format(float(row[5]) / float(row[3]), '.2f'))
+            else:
+                row.append(r'$>$' + format(float(row[5][1:]) / float(row[3]), '.2f'))
+                row[5] = r'$>$' + row[5][1:]
         else:
-            row.append(r'$>$' + format(float(row[5][1:]) / float(row[3]), '.2f'))
-            row[5] = r'$>$' + row[5][1:]
-        if row[6][0] != '>':
-            row.append(format(float(row[6]) / float(row[1]), '.2f'))
+            row.append('---')
+        if row[1][0] != '>':
+            if row[6][0] != '>':
+                row.append(format(float(row[6]) / float(row[1]), '.2f'))
+            else:
+                row.append(format(float(row[6][1:]) / float(row[1]), '.2f'))
+                row[6] = r'$>$' + row[6][1:]
         else:
-            row.append(format(float(row[6][1:]) / float(row[1]), '.2f'))
-            row[6] = r'$>$' + row[6][1:]
+            row.append('---')
         # print(row)
         for i in range(1, 8):
             if row[i][0] == '>':
@@ -205,7 +223,7 @@ def table_4(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
             row[i] = format_time(row[i])
         data.append(row)
     # print(data)
-    plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.usetex'] = True
 
     fig, ax = plt.subplots()
     ax.axis('tight')
@@ -260,7 +278,7 @@ def figure_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     data[i].append(float(lines[-14].split(' ')[-1]))
                     if i:
                         x_labels.append(graph)
-    plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.usetex'] = True
     # x = np.arange(len(data[0]))
     x = [_ for _ in range(len(data[0]))]
     # print(x)
@@ -304,11 +322,17 @@ def table_5(graphs, timeout=72 * 3600):
                 run(command, timeout)
             with open(file_name, 'r') as file:
                 lines = file.read().splitlines()
+                if lines[0][:7] == 'Process':
+                    time = '$>$' + str(timeout)
+                else:
+                    time = lines[-1].split(' ')[-1]
                 if len(row) < 4:
-                    row.append(format(float(lines[1].split(' ')[-1]), '.2f'))
-                row.append(lines[-1].split(' ')[-1])
+                    row.append('---')
+                elif time[:3] != '$>$':
+                    row[3] = format(float(lines[-2].split(' ')[-1]), '.2f')
+                row.append(format_time(time))
         data.append(row)
-    plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.usetex'] = True
 
     fig, ax = plt.subplots()
     ax.axis('tight')
@@ -342,10 +366,13 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                 run(command, timeout)
             with open(file_name, 'r') as file:
                 lines = file.read().splitlines()
-                if col == 'cCoreExact':
-                    row.append(format(float(lines[5].split(' ')[-1]), '.2f'))
-                else:
-                    row.append(format(float(lines[1].split(' ')[-1]), '.2f'))
+                try:
+                    if col == 'cCoreExact':
+                        row.append(format(float(lines[5].split(' ')[-1]), '.2f'))
+                    else:
+                        row.append(format(float(lines[1].split(' ')[-1]), '.2f'))
+                except IndexError:
+                    row.append('---')
         data.append(row)
 
     for graph in weighted_graphs:
@@ -366,13 +393,16 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                 run(command, timeout)
             with open(file_name, 'r') as file:
                 lines = file.read().splitlines()
-                if col == 'cCoreExact':
-                    row.append(format(float(lines[8].split(' ')[-1]), '.2f'))
-                else:
-                    row.append(format(float(lines[-2].split(' ')[-1]), '.2f'))
+                try:
+                    if col == 'cCoreExact':
+                        row.append(format(float(lines[8].split(' ')[-1]), '.2f'))
+                    else:
+                        row.append(format(float(lines[-2].split(' ')[-1]), '.2f'))
+                except IndexError:
+                    row.append('---')
         data.append(row)
     print(data)
-    plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.usetex'] = True
 
     fig, ax = plt.subplots()
     ax.axis('tight')
@@ -398,9 +428,18 @@ def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
             run(command, timeout)
         with open(file_name, 'r') as file:
             lines = file.read().splitlines()
-            x.append(lines[1].split(' ')[1])
-            y1.append(lines[1].split(' ')[3])
-            y2.append(lines[2].split(' ')[2])
+            try:
+                x.append(lines[1].split(' ')[1])
+            except:
+                x.append('nan')
+            try:
+                y1.append(lines[1].split(' ')[3])
+            except IndexError:
+                y1.append('nan')
+            try:
+                y2.append(lines[2].split(' ')[2])
+            except IndexError:
+                y2.append('nan')
 
     for graph in weighted_graphs:
         executable = './WExp'
@@ -414,11 +453,20 @@ def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
             run(command, timeout)
         with open(file_name, 'r') as file:
             lines = file.read().splitlines()
-            x.append(lines[4].split(' ')[1])
-            y1.append(lines[4].split(' ')[3])
-            y2.append(lines[5].split(' ')[2])
+            try:
+                x.append(lines[4].split(' ')[1])
+            except IndexError:
+                x.append('nan')
+            try:
+                y1.append(lines[4].split(' ')[3])
+            except IndexError:
+                y1.append('nan')
+            try:
+                y2.append(lines[5].split(' ')[2])
+            except IndexError:
+                y2.append('nan')
 
-    plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.usetex'] = True
     fig, ax = plt.subplots()
     plt.grid(True)
     plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
@@ -430,7 +478,7 @@ def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     plt.ylim(1e0, 1e8)
     ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10])
     ax.set_yticks([1e0, 1e2, 1e4, 1e6, 1e8])
-    x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
+    # x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
     print(x, y1, y2)
     plt.loglog(x, y1, '^', label=r'\#vertices in whole graph')
     plt.loglog(x, y2, 'o', label=r'\#vertices in core')
@@ -510,7 +558,7 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     x = [_ / 100 for _ in x]
     fig, ax = plt.subplots(2, 2)
     fig.subplots_adjust(wspace=0.5, hspace=0.5)
-    plt.rcParams['text.usetex'] = True
+    # plt.rcParams['text.usetex'] = True
 
     for j, graph in enumerate(unweighted_graphs):
         y = [[], []]
@@ -525,7 +573,13 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     run(command, timeout, file_name)
                 with open(file_name, 'r') as file:
                     lines = file.read().splitlines()
-                    y[i].append(float(lines[-1].split(' ')[-1]))
+                    try:
+                        y[i].append(float(lines[-1].split(' ')[-1]))
+                    except IndexError:
+                        y[i].append('nan')
+                    except ValueError:
+                        y[i].append('nan')
+
         ax[j // 2, j % 2].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
         ax[j // 2, j % 2].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
         ax[j // 2, j % 2].set_xlabel(r'appro factor')
@@ -546,7 +600,12 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                     run(command, timeout, file_name)
                 with open(file_name, 'r') as file:
                     lines = file.read().splitlines()
-                    y[i].append(float(lines[-1].split(' ')[-1]))
+                    try:
+                        y[i].append(float(lines[-1].split(' ')[-1]))
+                    except IndexError:
+                        y[i].append('nan')
+                    except ValueError:
+                        y[i].append('nan')
         labels.append(graph)
         ax[1, j + 1].plot(x, y[0], '^-', linewidth=2, label=algorithms[0])
         ax[1, j + 1].plot(x, y[1], 'o--', linewidth=2, label=algorithms[1])
@@ -555,18 +614,6 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         ax[1, j + 1].legend()
         ax[1, j + 1].set_title(graph)
 
-    # plt.grid(True)
-    # plt.tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
-    # plt.xlabel(r'appro factor')
-    # plt.ylabel(r'time (s)')
-    # plt.xlim(1e2, 1e10)
-    # plt.ylim(1e0, 1e8)
-    # ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10])
-    # ax.set_yticks([1e0, 1e2, 1e4, 1e6, 1e8])
-    # x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
-    # print(x, y1, y2)
-    # plt.loglog(x, y[0], '^', linewidth=2, label=r'\#vertices in whole graph')
-    # plt.loglog(x, y[1], 'o', linewidth=2, label=r'\#vertices in core')
     plt.savefig('./outputs/figure_9.pdf')
     plt.show()
 
@@ -574,15 +621,16 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
 def figure_10(path):
     datasets = ['NM', 'DP', 'AZ', 'LJ']
     proportions = {
-        r'0-0.8' : [],
-        r'0.8-0.95' : [],
-        r'0.95-0.99' : [],
+        r'0-0.8': [],
+        r'0.8-0.95': [],
+        r'0.95-0.99': [],
         r'0.99-1': []
     }
     with open(path, 'r') as file:
         lines = file.read().splitlines()
         for i in range(4):
-            num1 = int(lines[i * 7 + 1].split(' ')[1]) + int(lines[i * 7 + 2].split(' ')[1]) + int(lines[i * 7 + 3].split(' ')[1])
+            num1 = int(lines[i * 7 + 1].split(' ')[1]) + int(lines[i * 7 + 2].split(' ')[1]) + int(
+                lines[i * 7 + 3].split(' ')[1])
             num2 = int(lines[i * 7 + 4].split(' ')[1])
             num3 = int(lines[i * 7 + 5].split(' ')[1])
             num4 = int(lines[i * 7 + 6].split(' ')[1])
@@ -591,7 +639,6 @@ def figure_10(path):
             proportions[r'0.8-0.95'].append(num2 / total)
             proportions[r'0.95-0.99'].append(num3 / total)
             proportions[r'0.99-1'].append(num4 / total)
-
 
     fig, ax = plt.subplots()
 
@@ -608,10 +655,8 @@ def figure_10(path):
     plt.show()
 
 
-
-
 urls = [
-    'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
+    # 'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-orkut.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-lj.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-youtube.ungraph.txt.gz',
@@ -626,7 +671,7 @@ urls = [
     'https://snap.stanford.edu/data/web-NotreDame.txt.gz'
 ]
 datasets = [
-    'FT',
+    # 'FT',
     'OK',
     'LJ',
     'YT',
@@ -641,7 +686,6 @@ datasets = [
     'ND'
 ]
 
-
 if not os.path.exists('./data'):
     os.mkdir('data')
 files = []
@@ -652,21 +696,30 @@ for i, url in enumerate(urls):
         file_name += '.txt'
     else:
         file_name += '.csv'
-        if not os.path.exists(file_name):
-            download_file(url, raw_file)
-            extract_file(raw_file, datasets[i])
+    if not os.path.exists(file_name):
+        download_file(url, raw_file)
+        extract_file(raw_file, datasets[i])
     print(datasets[i] + ' has been extracted.')
 
 os.system('make all')
-if not os.path.exists('./outputs'):
+if not os.path.exists('outputs'):
     os.mkdir('outputs')
-table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-table_5(['WV', 'SF', 'ND'])
-table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'])
-figure_9(['DP', 'YT', 'LJ'], ['LB'])
+# table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+# figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+# table_5(['WV', 'SF', 'ND'], 60)
+# table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+# figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+# figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+# figure_9(['DP', 'YT', 'LJ'], ['LB'], 60)
+# figure_10('./Density-Friendly/output.txt')
+
+table_4(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_6(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+table_5(['WV', 'SF', 'ND'], 60)
+table_6(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_7(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_8(['YT', 'DP', 'AZ', 'LJ', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
+figure_9(['DP', 'YT', 'LJ'], ['LB'], 60)
 figure_10('./Density-Friendly/output.txt')
 
 os.system('make clear')

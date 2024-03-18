@@ -1,5 +1,10 @@
 /data/
 /obj/
-/outputs/
+/outputs_/
 /venv/
-
+/denoExp
+/unWExp
+/WExp
+/denoExp
+/formatData
+/outputs
