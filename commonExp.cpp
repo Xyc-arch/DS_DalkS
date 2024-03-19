@@ -53,7 +53,7 @@ int getV(string name, string split,int startLine, int lineNum){
         s.str("");
 
         if (n2 > V) V = n2;
-        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
+//        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
 
     }
     return V;
@@ -114,7 +114,7 @@ void readtxtGraph(string name, string split, bool fromZero, int& vertexNum, int&
         }
     allVertex.insert(pair<int, int>(n1, 1));
     allVertex.insert(pair<int, int>(n2, 1));
-    if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
+//    if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
 
     }
 

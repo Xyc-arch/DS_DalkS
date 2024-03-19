@@ -30,7 +30,7 @@ void test(string name, string split){
     infile.open(name, ios::in);
 
     while (getline(infile, line)){
-        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
+//        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
 //        if (currentLine > 500) break;
 //        cout << line << endl;
 
@@ -134,7 +134,7 @@ void readWeightGraph(string name, string split, bool fromZero, int& vertexNum, i
         }
         allVertex.insert(pair<int, int>(n1, 1));
         allVertex.insert(pair<int, int>(n2, 1));
-        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
+//        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
 
         if (w > maxW) maxW = w;
         if (w < minW) minW = w;

@@ -65,7 +65,7 @@ float soda22Flow(float l, float u, float eps, int V, int edgeNum, int indicateGr
 //        }
 //    }
 
-    return lambda;
+    return l;
 }
 
 
@@ -113,7 +113,7 @@ float soda22FlowApp(float l, float u, float eps, int V, int edgeNum, int indicat
         }
         cout << "The current gap: " << u-l << endl;
     }
-    return lambda;
+    return l;
 }
 
 
@@ -164,7 +164,7 @@ float soda22FlowAcc(float l, float u, float eps, int V, int edgeNum, int & heapS
         }
 //        cout << "The current gap: " << u-l <<endl;
     }
-    return lambda;
+    return l;
 }
 
 
@@ -221,7 +221,7 @@ float soda22FlowOrigin(float l, float u, float eps, int V, int edgeNum, int indi
         }
 //        cout << "The current gap: " << u-l << endl;
     }
-    return lambda;
+    return l;
 }
 
 
@@ -280,7 +280,7 @@ float soda22FlowOriginAcc(float l, float u, float eps, int V, int edgeNum, int &
         }
 //        cout << "The current gap: " << u-l << endl;
     }
-    return lambda;
+    return l;
 }
 
 

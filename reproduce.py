@@ -401,7 +401,6 @@ def table_6(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
                 except IndexError:
                     row.append('---')
         data.append(row)
-    print(data)
     # plt.rcParams['text.usetex'] = True
 
     fig, ax = plt.subplots()
@@ -585,19 +584,21 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         ax[j // 2, j % 2].set_ylabel(r'time (s)')
         ax[j // 2, j % 2].set_yscale('log')
         ax[j // 2, j % 2].legend()
-        current_ticks = ax[j // 2, j % 2].get_yticks()
-        current_labels = [item.get_text() for item in ax[j // 2, j % 2].get_yticklabels()]
-        index_to_replace = 0
-        for i, tick in enumerate(current_ticks.tolist()):
-            try:
-                if tick <= timeout < current_ticks.tolist()[i + 1]:
-                    index_to_replace = i + 1
-            except IndexError:
-                index_to_replace = i
-        current_labels[index_to_replace] = 'inf'
-        current_ticks[index_to_replace] = timeout
-        ax[j // 2, j % 2].set_yticks(current_ticks[:index_to_replace + 1])
-        ax[j // 2, j % 2].set_yticklabels(current_labels[:index_to_replace + 1])
+        ax[j // 2, j % 2].tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
+        if timeout in y[0] or timeout in y[1]:
+            current_ticks = ax[j // 2, j % 2].get_yticks()
+            current_labels = [item.get_text() for item in ax[j // 2, j % 2].get_yticklabels()]
+            index_to_replace = 0
+            for i, tick in enumerate(current_ticks.tolist()):
+                try:
+                    if tick <= timeout < current_ticks.tolist()[i + 1]:
+                        index_to_replace = i + 1
+                except IndexError:
+                    index_to_replace = i
+            current_labels[index_to_replace] = 'inf'
+            current_ticks[index_to_replace] = timeout
+            ax[j // 2, j % 2].set_yticks(current_ticks[:index_to_replace + 1])
+            ax[j // 2, j % 2].set_yticklabels(current_labels[:index_to_replace + 1])
         ax[j // 2, j % 2].set_title(graph)
 
     for j, graph in enumerate(weighted_graphs):
@@ -626,19 +627,21 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
         ax[1, j + 1].set_ylabel(r'time (s)')
         ax[1, j + 1].set_yscale('log')
         ax[1, j + 1].legend()
-        current_ticks = ax[1, j + 1].get_yticks()
-        current_labels = [item.get_text() for item in ax[1, j + 1].get_yticklabels()]
-        index_to_replace = 0
-        for i, tick in enumerate(current_ticks.tolist()):
-            try:
-                if tick <= timeout < current_ticks.tolist()[i + 1]:
-                    index_to_replace = i + 1
-            except IndexError:
-                index_to_replace = i
-        current_labels[index_to_replace] = 'inf'
-        current_ticks[index_to_replace] = timeout
-        ax[1, j + 1].set_yticks(current_ticks[:index_to_replace + 1])
-        ax[1, j + 1].set_yticklabels(current_labels[:index_to_replace + 1])
+        ax[1, j + 1].tick_params(which='both', direction='in', labelsize="large", top=True, right=True)
+        if timeout in y[0] or timeout in y[1]:
+            current_ticks = ax[1, j + 1].get_yticks()
+            current_labels = [item.get_text() for item in ax[1, j + 1].get_yticklabels()]
+            index_to_replace = 0
+            for i, tick in enumerate(current_ticks.tolist()):
+                try:
+                    if tick <= timeout < current_ticks.tolist()[i + 1]:
+                        index_to_replace = i + 1
+                except IndexError:
+                    index_to_replace = i
+            current_labels[index_to_replace] = 'inf'
+            current_ticks[index_to_replace] = timeout
+            ax[1, j + 1].set_yticks(current_ticks[:index_to_replace + 1])
+            ax[1, j + 1].set_yticklabels(current_labels[:index_to_replace + 1])
         ax[1, j + 1].set_title(graph)
 
     plt.savefig('./outputs/figure_9.pdf')
