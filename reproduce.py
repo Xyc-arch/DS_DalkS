@@ -3,9 +3,6 @@ import os
 import gzip
 import zipfile
 import subprocess
-# import numpy as np
-
-# import pandas as pd
 import matplotlib.pyplot as plt
 
 
@@ -648,7 +645,61 @@ def figure_9(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     plt.show()
 
 
-def figure_10(path):
+def read_txt(inputpath):
+    pairs = []
+    D_tilde_size = []
+    temp_size = 0
+    with open(inputpath, 'r', encoding='utf-8') as infile:
+        for line in infile:
+            data_line = line.strip("\n").split()
+            pairs.append((int(data_line[0]), eval(data_line[1])))
+    sorted_pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
+    for pair in sorted_pairs:
+        temp_size += pair[0]
+        D_tilde_size.append(temp_size)
+
+    return D_tilde_size
+
+
+def graph_one(inputpath, N):
+    D_tilde_size = read_txt(inputpath)
+    DS_size = D_tilde_size[0]
+    approx = []
+    size = []
+    c_idx = 0
+    n_50_80 = 0
+    n_80_95 = 0
+    n_95_99 = 0
+    n_ge99 = 0
+    n_33_50 = 0
+    n_le33 = 0
+    for n in range(1, N + 1):
+        if n <= DS_size or n == N:
+            approx.append(1)
+            n_ge99 += 1
+        else:
+            if n >= D_tilde_size[c_idx]:
+                c_idx += 1
+            rate = n / D_tilde_size[c_idx]
+            approx.append(rate)
+            if rate >= 0.99:
+                n_ge99 += 1
+            elif 0.95 <= rate < 0.99:
+                n_95_99 += 1
+            elif 0.8 <= rate < 0.95:
+                n_80_95 += 1
+            elif 0.5 <= rate < 0.8:
+                n_50_80 += 1
+            elif 0.33 <= rate < 0.5:
+                n_33_50 += 1
+            elif rate < 0.33:
+                n_le33 += 1
+        size.append(n / N)
+    return [(n_le33 + n_33_50 + n_50_80) / N, n_80_95 / N, n_95_99 / N, n_ge99 / N]
+
+
+def figure_10():
+    os.system('g++ ./Density-Friendly/exactDF.cpp -fopenmp -fpermissive -o ./Density-Friendly/exactDF -O3')
     datasets = ['NM', 'DP', 'AZ', 'LJ']
     proportions = {
         r'0-0.8': [],
@@ -656,19 +707,33 @@ def figure_10(path):
         r'0.95-0.99': [],
         r'0.99-1': []
     }
-    with open(path, 'r') as file:
-        lines = file.read().splitlines()
-        for i in range(4):
-            num1 = int(lines[i * 7 + 1].split(' ')[1]) + int(lines[i * 7 + 2].split(' ')[1]) + int(
-                lines[i * 7 + 3].split(' ')[1])
-            num2 = int(lines[i * 7 + 4].split(' ')[1])
-            num3 = int(lines[i * 7 + 5].split(' ')[1])
-            num4 = int(lines[i * 7 + 6].split(' ')[1])
-            total = num1 + num2 + num3 + num4
-            proportions[r'0-0.8'].append(num1 / total)
-            proportions[r'0.8-0.95'].append(num2 / total)
-            proportions[r'0.95-0.99'].append(num3 / total)
-            proportions[r'0.99-1'].append(num4 / total)
+    Ns = [16264, 317080, 334863, 3997962]
+    for i, dataset in enumerate(datasets):
+        file_name = f"./Density-Friendly/{dataset}_Exact.txt"
+        if not os.path.exists(file_name):
+            os.system(f'./formatData ./data {dataset}')
+            os.system(
+                f'./Density-Friendly/exactDF 4 1500 ./data/{dataset}_net.txt ./Density-Friendly/{dataset}_rates.txt ./Density-Friendly/{dataset}_pavafit.txt ./Density-Friendly/{dataset}_cuts.txt ./Density-Friendly/{dataset}_Exact.txt')
+            os.system(
+                f'rm ./data/{dataset}_net.txt ./Density-Friendly/{dataset}_rates.txt ./Density-Friendly/{dataset}_pavafit.txt ./Density-Friendly/{dataset}_cuts.txt')
+        nums = graph_one(file_name, Ns[i])
+        proportions[r'0-0.8'].append(nums[0])
+        proportions[r'0.8-0.95'].append(nums[1])
+        proportions[r'0.95-0.99'].append(nums[2])
+        proportions[r'0.99-1'].append(nums[3])
+    # with open(path, 'r') as file:
+    #     lines = file.read().splitlines()
+    #     for i in range(4):
+    #         num1 = int(lines[i * 7 + 1].split(' ')[1]) + int(lines[i * 7 + 2].split(' ')[1]) + int(
+    #             lines[i * 7 + 3].split(' ')[1])
+    #         num2 = int(lines[i * 7 + 4].split(' ')[1])
+    #         num3 = int(lines[i * 7 + 5].split(' ')[1])
+    #         num4 = int(lines[i * 7 + 6].split(' ')[1])
+    #         total = num1 + num2 + num3 + num4
+    #         proportions[r'0-0.8'].append(num1 / total)
+    #         proportions[r'0.8-0.95'].append(num2 / total)
+    #         proportions[r'0.95-0.99'].append(num3 / total)
+    #         proportions[r'0.99-1'].append(num4 / total)
 
     fig, ax = plt.subplots()
 
@@ -685,6 +750,7 @@ def figure_10(path):
     plt.show()
 
 
+timeout = 60
 urls = [
     'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-orkut.ungraph.txt.gz',
@@ -734,13 +800,13 @@ for i, url in enumerate(urls):
 os.system('make all')
 if not os.path.exists('outputs'):
     os.mkdir('outputs')
-table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-table_5(['WV', 'SF', 'ND'], 60)
-table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], 60)
-figure_9(['DP', 'YT', 'LJ'], ['LB'], 60)
-figure_10('./Density-Friendly/output.txt')
+table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+table_5(['WV', 'SF', 'ND'], timeout)
+table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+figure_9(['DP', 'YT', 'LJ'], ['LB'], timeout)
+figure_10()
 
 os.system('make clear')

@@ -9,7 +9,7 @@ Feel free to use these lines as you wish. This program computes the exact densit
 
 To compile:
 g++ exactDF.cpp -fopenmp -fpermissive -o exactDF -O3
-
+g++ ./Density-Friendly/exactDF.cpp -fopenmp -fpermissive -o ./Density-Friendly/exactDF -O3
 To execute:
 ./exactDF ncpu iter net.txt rates.txt pavafit.txt cuts.txt exact.txt
 

@@ -21,7 +21,13 @@ A Linux machine equipped with two Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz pr
 
 gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1).
 
-Python 3.8.10 with numpy and matplotlib installed.
+Python3.
+
+To equip with the necessary python package, run
+
+```sh
+pip install -r requirements.txt
+```
 
 
 ## Dataset preparation
@@ -144,6 +150,12 @@ The generated file `./Density-Friendly/testExact` contains the info about decomp
 
 Here, we provide the instruction for reproducing all of results. Note that the most time costly experiment using our novel algorithms may take around 1 day, while baselines may not finish within 3 days.
 
+You can directly get the full reproduction by
+
+```sh
+python3 reproduce.py
+```
+
 Components in following cmd are like:
 
 ```sh
@@ -230,11 +242,11 @@ In your `data` directory, you observe a processed file `data/*net.txt`. For inst
 Then we run the decomposition (our DalkS algorithm is based on decomposition) in processed file.
 
 ```sh
-make exactDF
-./Density-Friendly/exactDF 4 1500 ./data/testnet.txt ./Density-Friendly/rates.txt ./Density-Friendly/pavafit.txt ./Density-Friendly/cuts.txt ./Density-Friendly/testExact.txt
+g++ ./Density-Friendly/exactDF.cpp -fopenmp -fpermissive -o ./Density-Friendly/exactDF -O3
+./Density-Friendly/exactDF 4 1500 ./data/NM_net.txt ./Density-Friendly/NM_rates.txt ./Density-Friendly/NM_pavafit.txt ./Density-Friendly/NM_cuts.txt ./Density-Friendly/NM_Exact.txt
 ```
 
-You will observe the file containing information about decomposition in the form of `./Density-Friendly/*Exact.txt`. Then obtain the proportion of approximation ratio by:
+You will observe the file containing information about decomposition in the form of `./Density-Friendly/*_Exact.txt`. Then obtain the proportion of approximation ratio by:
 
 ```sh
 python3 ./Density-Friendly/dalksDecomp.py

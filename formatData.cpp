@@ -94,7 +94,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "LJ") {
         input = path + "/LJ.txt";
-        output = path + "/LJnet.txt";
+        output = path + "/LJ_net.txt";
         split = "	";
         startLine = 5;
         lineNum = 34681193;
@@ -102,7 +102,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "NM") {
         input = path + "/NM.txt";
-        output = path + "/NMnet.txt";
+        output = path + "/NM_net.txt";
         split = " ";
         startLine = 1;
         lineNum = 95188;
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "DP") {
         input = path + "/DP.txt";
-        output = path + "/DPnet.txt";
+        output = path + "/DP_net.txt";
         split = "	";
         startLine = 5;
         lineNum = 1049866;
@@ -124,7 +124,7 @@ int main(int argc, char *argv[]){
 
     if (dataset == "AZ") {
         input = path + "/AZ.txt";
-        output = path + "/AZnet.txt";
+        output = path + "/AZ_net.txt";
         split = "	";
         startLine = 5;
         lineNum = 925876;

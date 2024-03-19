@@ -1,6 +1,6 @@
 
-import matplotlib.pyplot as plt
-import numpy as np
+# import matplotlib.pyplot as plt
+# import numpy as np
 
 
 # def read_txt(inputpath):
@@ -33,18 +33,18 @@ def read_txt(inputpath):
 
 def graph_one(inputpath, name, N, c):
     
-    if inputpath == "./Density-Friendly/testExact.txt":
-        print(32*"*")
-        print("dalkSDecomp on NM:")
-    elif inputpath == "./Density-Friendly/comljExact.txt":
-        print(32*"*")
-        print("dalkSDecomp on LJ:")
-    elif inputpath == "./Density-Friendly/dblpExact.txt":
-        print(32*"*")
-        print("dalkSDecomp on DP:")
-    elif inputpath == "./Density-Friendly/amazonExact.txt":
-        print(32*"*")
-        print("dalkSDecomp on AZ:")
+    # if inputpath == "./Density-Friendly/NM_Exact.txt":
+    #     print(32*"*")
+    #     print("dalkSDecomp on NM:")
+    # elif inputpath == "./Density-Friendly/LJ_Exact.txt":
+    #     print(32*"*")
+    #     print("dalkSDecomp on LJ:")
+    # elif inputpath == "./Density-Friendly/DP_Exact.txt":
+    #     print(32*"*")
+    #     print("dalkSDecomp on DP:")
+    # elif inputpath == "./Density-Friendly/AZ_Exact.txt":
+    #     print(32*"*")
+    #     print("dalkSDecomp on AZ:")
         
     
     D_tilde_size = read_txt(inputpath)
@@ -87,7 +87,7 @@ def graph_one(inputpath, name, N, c):
     print("0.8~0.95: {} {}".format(n_80_95, n_80_95/N))
     print("0.95~0.99: {} {}".format(n_95_99, n_95_99/N))
     print(">0.99: {} {}".format(n_ge99, n_ge99/N))
-    plt.plot(size, approx, linewidth=1, color=c, marker=",", label = name)
+    # plt.plot(size, approx, linewidth=1, color=c, marker=",", label = name)
 
 
 
@@ -153,10 +153,10 @@ if __name__ == "__main__":
     # plt.legend()
     # plt.show()
 
-    graph_one("./testExact.txt", "NM", 16264, "orange")
-    graph_one("./dblpExact.txt", "DP", 317080, "blue")
-    graph_one("./amazonExact.txt", "AZ", 334863, "green")
-    graph_one("./comljExact.txt", "LJ", 3997962, "purple")
+    graph_one("./NM_Exact.txt", "NM", 16264, "orange")
+    graph_one("./DP_Exact.txt", "DP", 317080, "blue")
+    graph_one("./AZ_Exact.txt", "AZ", 334863, "green")
+    graph_one("./LJ_Exact.txt", "LJ", 3997962, "purple")
     
     closest = find_near_subgraph("./comljExact.txt", 50000)
     print(closest)
