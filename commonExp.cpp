@@ -900,7 +900,7 @@ float greedyPPexp(int V, int vertexNum, long double totalW, int indicateGraph[],
 //        cout << "iter " << t << endl;
         totalW = originTotalW;
         heapSize = vertexNum;
-        optDen = totalW/heapSize;
+//        optDen = totalW/heapSize;
         cp = 1;
         for (int i=1; i<=V; i++){
             indicateGraph[i] = originIndicateG[i];
