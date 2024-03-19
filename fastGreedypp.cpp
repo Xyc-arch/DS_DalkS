@@ -24,7 +24,8 @@ int fasterGreedypp(int V, int vertexNum, long double totalW, int indicateGraph[]
     clock_t start, finish;
     double duration;
     eps = 1.0 / (1.0 - eps) - 1;
-    int T = (int) (1.0 / eps) * (1.0 / eps);
+    int T = (int) (1.0 / eps / eps);
+    if (1.0 / eps / eps > T) T++;
 //    cout << T << endl;
     int cp=1;
     int heapSize=vertexNum;
