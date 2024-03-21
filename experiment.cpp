@@ -97,7 +97,7 @@ int unWeightexp(string path, string mode, string dataset, double eps){
 
 
     // program execution
-    int edgeNum;
+    long edgeNum;
     int vertexNum = 0;
     long double totalW = 0;
     int* indicateGraph = new int[V+1]{0};

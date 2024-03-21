@@ -17,7 +17,7 @@ using namespace std;
 // function in commonExp.cpp
 int getV(string name, string split, int startLine, int lineNum);
 
-void readtxtGraph(string name, string split, bool fromZero, int &vertexNum, int &edgeNum, int startLine, int lineNum,
+void readtxtGraph(string name, string split, bool fromZero, int &vertexNum, long &edgeNum, int startLine, int lineNum,
                   long double &totalW, int indicateGraph[], float strength[], float vertexS[],
                   vector <pair<int, float>> adj[]);
 
@@ -29,7 +29,7 @@ float berkleyexp1(int V, int vertexNum, long double totalW, int indicateGraph[],
                   vector <pair<int, float>> adj[]);
 
 float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[],
-                  vector <pair<int, float>> adj[], int edgeNum);
+                  vector <pair<int, float>> adj[], long edgeNum);
 
 float berkleyexp3(int V, int indicateGraph[], float strength[], float vertexS[], vector <pair<int, float>> adj[]);
 

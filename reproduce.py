@@ -475,6 +475,16 @@ def figure_7(unweighted_graphs, weighted_graphs, timeout=72 * 3600):
     ax.set_xticks([1e2, 1e4, 1e6, 1e8, 1e10])
     ax.set_yticks([1e0, 1e2, 1e4, 1e6, 1e8])
     # x, y1, y2 = list(map(int, x)), list(map(int, y1)), list(map(int, y2))
+    for i in range(len(x) - 1, -1, -1):
+        if x[i] == 'nan':
+            x.pop(i)
+            y1.pop(i)
+            y2.pop(i)
+        else:
+            x[i] = int(x[i])
+            y1[i] = int(y1[i])
+            y2[i] = int(y2[i])
+    print(x, y1, y2)
     plt.loglog(x, y1, '^', label=r'\#vertices in whole graph')
     plt.loglog(x, y2, 'o', label=r'\#vertices in core')
     plt.legend()
@@ -800,13 +810,13 @@ for i, url in enumerate(urls):
 os.system('make all')
 if not os.path.exists('outputs'):
     os.mkdir('outputs')
-table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-table_5(['WV', 'SF', 'ND'], timeout)
-table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+# table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+# figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+# table_5(['WV', 'SF', 'ND'], timeout)
+# table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
 figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-figure_9(['DP', 'YT', 'LJ'], ['LB'], timeout)
-figure_10()
+# figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+# figure_9(['DP', 'YT', 'LJ'], ['LB'], timeout)
+# figure_10()
 
 os.system('make clear')

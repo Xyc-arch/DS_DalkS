@@ -60,7 +60,7 @@ int getV(string name, string split,int startLine, int lineNum){
 }
 
 
-void readtxtGraph(string name, string split, bool fromZero, int& vertexNum, int& edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+void readtxtGraph(string name, string split, bool fromZero, int& vertexNum, long& edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
     ifstream infile;
     string line;
     int n1;
@@ -468,7 +468,7 @@ float berkleyexp1(int V, int vertexNum, long double totalW, int indicateGraph[],
 
 
 
-float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], int edgeNum){
+float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], long edgeNum){
     clock_t start, finish, start0, finish0;
     double duration, duration0;
 

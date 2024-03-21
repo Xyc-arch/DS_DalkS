@@ -67,7 +67,7 @@ void test(string name, string split){
 
 
 
-void readWeightGraph(string name, string split, bool fromZero, int& vertexNum, int & edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+void readWeightGraph(string name, string split, bool fromZero, int& vertexNum, long & edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
     ifstream infile;
     string line;
     int n1;
@@ -183,7 +183,7 @@ double dalksMag(int T){
     double duration1, duration2;
 
     int vertexNum = 0;
-    int edgeNum = 0;
+    long edgeNum = 0;
     long double ototalW = 0;
     int* oindicateGraph = new int[V+1]{0};
     float* ostrength = new float[V+1]{0};
@@ -543,7 +543,7 @@ int weightexp(string path, string mode, string dataset, double eps){
 
     // program execution
     int vertexNum = 0;
-    int edgeNum = 0;
+    long edgeNum = 0;
     long double totalW = 0;
     int* indicateGraph = new int[V+1]{0};
     float* strength = new float[V+1]{0};
@@ -619,7 +619,7 @@ void fraudarGraph(string name, string split, bool fromZero, int V, int startLine
     }
 }
 
-void readFraudarGraph(string name, string split, bool fromZero, int startLine, int lineNum, int& vertexNum, int & edgeNum, long double & totalW, int indicateGraph[], float fraudar[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
+void readFraudarGraph(string name, string split, bool fromZero, int startLine, int lineNum, int& vertexNum, long & edgeNum, long double & totalW, int indicateGraph[], float fraudar[], float strength[], float vertexS[], vector <pair <int, float>> adj[]){
     ifstream infile;
     string line;
     int n1;
@@ -737,7 +737,7 @@ int weightexp2(string path, string mode, string dataset, double eps){
 
 
     int vertexNum = 0;
-    int edgeNum = 0;
+    long edgeNum = 0;
     long double totalW = 0;
     int* indicateGraph = new int[V+1]{0};
     float* strength = new float[V+1]{0};

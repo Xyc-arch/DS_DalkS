@@ -13,9 +13,9 @@
 
 using namespace std;
 
-void readWeightGraph(string name, string split, bool fromZero, int& vertexNum, int & edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
+void readWeightGraph(string name, string split, bool fromZero, int& vertexNum, long & edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
 
-void readtxtGraph(string name, string split, bool fromZero, int& vertexNum, int& edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
+void readtxtGraph(string name, string split, bool fromZero, int& vertexNum, long& edgeNum, int startLine, int lineNum, long double & totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
 
 // heap-related function in DALKS.cpp
 void printAdjacent(int id, vector <pair <int, int>> adj[]);
@@ -64,7 +64,7 @@ pair<double, double> DALKSexp(int V, int vertexNum, int k, int j, long double to
 
 float berkleyexp1(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
 
-float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], int edgeNum);
+float berkleyexp2(int V, int vertexNum, long double totalW, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[], long edgeNum);
 
 float berkleyexp3(int V, int indicateGraph[], float strength[], float vertexS[], vector <pair <int, float>> adj[]);
 
