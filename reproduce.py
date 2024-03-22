@@ -760,7 +760,7 @@ def figure_10():
     plt.show()
 
 
-timeout = 3600
+timeout = 60
 urls = [
     'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-orkut.ungraph.txt.gz',
@@ -810,13 +810,13 @@ for i, url in enumerate(urls):
 os.system('make all')
 if not os.path.exists('outputs'):
     os.mkdir('outputs')
-# table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-# figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-# table_5(['WV', 'SF', 'ND'], timeout)
-# table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+table_4(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+figure_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+table_5(['WV', 'SF', 'ND'], timeout)
+table_6(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
 figure_7(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-# figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
-# figure_9(['DP', 'YT', 'LJ'], ['LB'], timeout)
-# figure_10()
+figure_8(['YT', 'DP', 'AZ', 'LJ', 'FT', 'OK'], ['LW', 'YW', 'LB', 'NM', 'OF', 'FF'], timeout)
+figure_9(['DP', 'YT', 'LJ'], ['LB'], timeout)
+figure_10()
 
 os.system('make clear')
