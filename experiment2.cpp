@@ -682,7 +682,7 @@ void readFraudarGraph(string name, string split, bool fromZero, int startLine, i
 
         allVertex.insert(pair<int, int>(n1, 1));
         allVertex.insert(pair<int, int>(n2, 1));
-        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
+//        if (currentLine%10000000 == 0) cout << "Line: " << currentLine << endl;
 
         if (w > maxW) maxW = w;
         if (w < minW) minW = w;

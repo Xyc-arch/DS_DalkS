@@ -760,7 +760,7 @@ def figure_10():
     plt.show()
 
 
-timeout = 60
+timeout = 3600
 urls = [
     'https://snap.stanford.edu/data/bigdata/communities/com-friendster.ungraph.txt.gz',
     'https://snap.stanford.edu/data/bigdata/communities/com-orkut.ungraph.txt.gz',
